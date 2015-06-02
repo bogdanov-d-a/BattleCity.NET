@@ -255,12 +255,20 @@ namespace BattleCity.NET
                         visibleEnemies[i].m_baseDirection, visibleEnemies[i].m_turretDirection, visibleEnemies[i].m_health);
                 }
                 update();
-                m_baseDirection += Convert.ToInt32(getrotatedirection() * getrotatespeed() * CConstants.baseRotationRate + 360) % 360;
-                TryToMoveForward(getdirection() * CConstants.tankSpeed * Math.Sin(m_baseDirection * Math.PI / 180),
-                    getdirection() * CConstants.tankSpeed * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
+                m_baseDirection += Convert.ToInt32(LimitValue(getrotatedirection(), -1, 1) * LimitValue(getrotatespeed(), 0, 10) * CConstants.baseRotationRate + 360) % 360;
+
+                int newDirection = LimitValue(getdirection(), -1, 1);
+                TryToMoveForward(newDirection * CConstants.tankSpeed * Math.Sin(m_baseDirection * Math.PI / 180),
+                    newDirection * CConstants.tankSpeed * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
+
                 FixCollisions(tanks);
-                m_turretDirection += Convert.ToInt32(getturretrotatedirection() * getturretrotatespeed() * CConstants.turretRotationRate + 360) % 360;
+                m_turretDirection += Convert.ToInt32(LimitValue(getturretrotatedirection(), -1, 1) * LimitValue(getturretrotatespeed(), 0, 20) * CConstants.turretRotationRate + 360) % 360;
+
                 distance = getfiredistance();
+                if (distance < -1)
+                {
+                    distance = -1;
+                }
             }
             catch
             {
@@ -460,9 +468,25 @@ namespace BattleCity.NET
         private double m_y;
         private short m_health;
         private short m_hits;
-        private short m_reload;
+        private int m_reload;
         private int m_baseDirection;
         private int m_turretDirection;
         private short m_deadPlace;
+
+        private static int LimitValue(int value, int min, int max)
+        {
+            if (value < min)
+            {
+                return min;
+            }
+            else if (value > max)
+            {
+                return max;
+            }
+            else
+            {
+                return value;
+            }
+        }
     }
 }
