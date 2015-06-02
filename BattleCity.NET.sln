@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleCity.NET", "BattleCit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircleAI", "CircleAI\CircleAI.vcxproj", "{F5440F39-8BFE-4DB8-94E1-9C6265CA4A67}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AIExample", "MedChestSearchAI\MedChestSearchAI.vcxproj", "{3C2F38D6-9E72-49FA-B033-75D0E290353F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MedChestSearchAI", "MedChestSearchAI\MedChestSearchAI.vcxproj", "{3C2F38D6-9E72-49FA-B033-75D0E290353F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RandomAI", "RandomAI\RandomAI.vcxproj", "{96BD8798-3C2D-4B36-837D-8D920625D895}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,16 @@ Global
 		{3C2F38D6-9E72-49FA-B033-75D0E290353F}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{3C2F38D6-9E72-49FA-B033-75D0E290353F}.Release|Win32.ActiveCfg = Release|Win32
 		{3C2F38D6-9E72-49FA-B033-75D0E290353F}.Release|Win32.Build.0 = Release|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Debug|Win32.ActiveCfg = Debug|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Debug|Win32.Build.0 = Debug|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Release|Any CPU.ActiveCfg = Release|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Release|Win32.ActiveCfg = Release|Win32
+		{96BD8798-3C2D-4B36-837D-8D920625D895}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
