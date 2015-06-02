@@ -13,7 +13,7 @@ namespace BattleCity.NET
 {
     public partial class FBattleScreen : Form
     {
-        public FBattleScreen(int countTanks)
+        public FBattleScreen(int countTanks, string[] playerNames)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -40,6 +40,11 @@ namespace BattleCity.NET
                     this.Controls.Add(listProgressBarHealth[i]);
                 }
              }
+
+            gbPlayer1.Text = playerNames[0];
+            gbPlayer2.Text = playerNames[1];
+            gbPlayer3.Text = playerNames[2];
+            gbPlayer4.Text = playerNames[3];
         }
         List<CProgressBar> listProgressBar = new List<CProgressBar>();
         List<CProgressBar> listProgressBarHealth = new List<CProgressBar>();

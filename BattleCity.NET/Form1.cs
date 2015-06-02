@@ -159,7 +159,7 @@ namespace BattleCity.NET
                 MessageBox.Show("Not enough players (minimum 2)");
                 return;
             }
-            FBattleScreen frm2 = new FBattleScreen(tanks.Count);
+            FBattleScreen frm2 = new FBattleScreen(tanks.Count, new string[]{ lTank1DLL.Text, lTank2DLL.Text, lTank3DLL.Text, lTank4DLL.Text });
             Directory.CreateDirectory("tmp");
             for (int i = 0; i < tanks.Count; i++)
             {
