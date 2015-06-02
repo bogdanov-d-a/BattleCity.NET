@@ -15,35 +15,38 @@ namespace BattleCity.NET
             error = 0;
             try
             {
-                explosion = Image.FromFile(@"Images\explosion.png");
-                shell = Image.FromFile(@"Images\shell.png");
-                wrecked = Image.FromFile(@"Images\wrecked.png");
+                explosion = Image.FromFile(@"Images\explosion.png")
+                    .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
+
+                shell = Image.FromFile(@"Images\shell.png")
+                    .GetThumbnailImage(CConstants.shellSize, CConstants.shellSize, null, IntPtr.Zero);
+
+                wrecked = Image.FromFile(@"Images\wrecked.png")
+                    .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
             }
             catch
             {
                 error = 1;
                 return;
             }
-            explosion = explosion.GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
-            shell = shell.GetThumbnailImage(CConstants.shellSize, CConstants.shellSize, null, IntPtr.Zero);
-            wrecked = wrecked.GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
         }
-        public const int refreshTime = 20;
-        public const int tankSize = 64;
-        public const int turretSize = 80;
-        public const int formWidth = 640;
-        public const int formHeight = 480;
-        public const int tankSpeed = refreshTime / 10;
-        public const double baseRotationRate = 0.01 * refreshTime;
-        public const double turretRotationRate = 0.01 * refreshTime;
-        public const int reloadTime = 5000 / refreshTime;
-        public const int shellSpeed = refreshTime;
-        public const int shellSize = 16;
-        public const int explodeTime = 200 / refreshTime;
-        public const int medChestsSize = 20;
-        public readonly static Image explosion;
-        public readonly static Image shell;
-        public readonly static Image wrecked;
+
+        public static int refreshTime = 20;
+        public static int tankSize = 64;
+        public static int turretSize = 80;
+        public static int formWidth = 640;
+        public static int formHeight = 480;
+        public static int tankSpeed = refreshTime / 10;
+        public static double baseRotationRate = 0.01 * refreshTime;
+        public static double turretRotationRate = 0.01 * refreshTime;
+        public static int reloadTime = 5000 / refreshTime;
+        public static int shellSpeed = refreshTime;
+        public static int shellSize = 16;
+        public static int explodeTime = 200 / refreshTime;
+        public static int medChestsSize = 20;
+        public static readonly Image explosion;
+        public static readonly Image shell;
+        public static readonly Image wrecked;
         public static int error;
     }
 }
