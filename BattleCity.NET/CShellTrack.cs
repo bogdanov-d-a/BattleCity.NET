@@ -10,7 +10,7 @@ namespace BattleCity.NET
 {
     class CShellTrack
     {
-        private const double M_HEIGHT = CConstants.shellSize / 3;
+        private double M_HEIGHT = CConstants.shellSize / 3;
         private double m_x1;
         private double m_x2;
         private double m_y1;
