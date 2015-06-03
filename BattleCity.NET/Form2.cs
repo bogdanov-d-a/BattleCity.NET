@@ -293,7 +293,7 @@ namespace BattleCity.NET
         {
             for (int i = 0; i < tanks.Count; i++)
             {
-                tanks[i].Free();
+                tanks[i].Dispose();
             }
             if (timer1.Enabled)
             {

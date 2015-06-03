@@ -10,7 +10,7 @@ using System.IO;
 
 namespace BattleCity.NET
 {
-    class CTank
+    class CTank : IDisposable
     {
         [DllImport("kernel32.dll", EntryPoint = "LoadLibrary")]
         static extern IntPtr LoadLibrary(string dllToLoad);
@@ -119,7 +119,7 @@ namespace BattleCity.NET
             IntPtr ptr = GetProcAddress(dll, functionName);
             return Marshal.GetDelegateForFunctionPointer(ptr, type);
         }
-        public void Free() 
+        public void Dispose() 
         {
             FreeLibrary(m_dll);
         }
