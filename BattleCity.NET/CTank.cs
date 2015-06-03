@@ -33,6 +33,7 @@ namespace BattleCity.NET
 
             m_health = 100;
             m_hits = 0;
+            m_shots = 0;
             m_baseDirection = CRandom.Next(360);
             m_turretDirection = m_baseDirection;
             m_deadPlace = -1;
@@ -197,6 +198,7 @@ namespace BattleCity.NET
             {
                 shells.Add(new CShell(Convert.ToInt32(m_x), Convert.ToInt32(m_y), m_turretDirection, distance, this));
                 m_reload = CConstants.reloadTime;
+                ++m_shots;
             }
         }
         public void Draw(Graphics graph)
@@ -372,6 +374,7 @@ namespace BattleCity.NET
         private double m_y;
         private short m_health;
         private short m_hits;
+        public int m_shots;
         private int m_reload;
         private int m_baseDirection;
         private int m_turretDirection;
