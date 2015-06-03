@@ -14,6 +14,7 @@ namespace BattleCity.NET
 
         private double m_x;
         private double m_y;
+        private bool m_antibonus;
 
         private bool CoordinatesIsMatchTanks(List<CTank> Tanks, double tempX, double tempY)
         {
@@ -47,6 +48,11 @@ namespace BattleCity.NET
             m_y = CRandom.Next(20, 440);
         }
 
+        private void SetRandomType()
+        {
+            m_antibonus = (CRandom.Next(10) == 0);
+        }
+
         public CMedicineChest(List<CTank> Tanks, List<CMedicineChest> medChests) : base(CConstants.medChestLifetime)
         {
             do
@@ -54,11 +60,13 @@ namespace BattleCity.NET
                 SetRandomCoord();
             }
             while (CoordinatesIsMatchTanks(Tanks, m_x, m_y));
+            SetRandomType();
         }
 
         public CMedicineChest() : base(CConstants.medChestLifetime)
         {
             SetRandomCoord();
+            SetRandomType();
         }
 
         public double GetX()
@@ -73,7 +81,7 @@ namespace BattleCity.NET
 
         public void Draw(Graphics graph)
         {
-            graph.DrawImage(m_ImageMedicineChest, (float)m_x, (float)m_y);
+            graph.DrawImage(m_antibonus ? m_ImageAntibonus : m_ImageMedicineChest, (float)m_x, (float)m_y);
         }
 
         public bool CheckCollision(double x, double y)
