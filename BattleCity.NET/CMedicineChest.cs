@@ -41,23 +41,24 @@ namespace BattleCity.NET
             return false;
         }
 
+        private void SetRandomCoord()
+        {
+            m_x = CRandom.Next(20, 590);
+            m_y = CRandom.Next(20, 440);
+        }
+
         public CMedicineChest(List<CTank> Tanks, List<CMedicineChest> medChests) : base(CConstants.medChestLifetime)
         {
-            double tempX = 0;
-            double tempY = 0;
             do
             {
-                tempX = CRandom.Next(20, 590);
-                tempY = CRandom.Next(20, 440);
-            } while (CoordinatesIsMatchTanks(Tanks, tempX, tempY));
-            m_x = tempX;
-            m_y = tempY;
+                SetRandomCoord();
+            }
+            while (CoordinatesIsMatchTanks(Tanks, m_x, m_y));
         }
 
         public CMedicineChest() : base(CConstants.medChestLifetime)
         {
-            m_x = CRandom.Next(1, 500);
-            m_y = CRandom.Next(1, 500);
+            SetRandomCoord();
         }
 
         public double GetX()
