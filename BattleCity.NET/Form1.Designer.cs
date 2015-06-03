@@ -387,6 +387,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Setup";
             this.gbTank1.ResumeLayout(false);
             this.gbTank1.PerformLayout();
