@@ -10,10 +10,11 @@ namespace BattleCity.NET
     class CMedicineChest : CLimitedLifeObject
     {
         private static Image m_ImageMedicineChest = Image.FromFile(@"Images\MedicineChest.png");
+        private static Image m_ImageAntibonus = Image.FromFile(@"Images\Antibonus.png");
 
         private double m_x;
         private double m_y;
-       
+
         private bool CoordinatesIsMatchTanks(List<CTank> Tanks, double tempX, double tempY)
         {
             for (int i = 0; i < Tanks.Count(); ++i)
