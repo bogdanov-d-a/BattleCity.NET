@@ -17,19 +17,13 @@ namespace BattleCity.NET
             LoadDLL(dll);
             try
             {
-                m_base = Image.FromFile(@"Images\Bases\" + image);
-                m_turret = Image.FromFile(@"Images\Turrets\" + image);
-                m_tank = Image.FromFile(@"Images\Tanks\" + image);
-                
+                m_graphics = new CTankGraphics(image, CConstants.tankSize, CConstants.turretSize, 50);
             }
             catch
             {
                 CConstants.error = 1;
                 return;
             }
-            m_base = m_base.GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
-            m_turret = m_turret.GetThumbnailImage(CConstants.turretSize, CConstants.turretSize, null, IntPtr.Zero);
-            m_tank = m_tank.GetThumbnailImage(50, 50, null, IntPtr.Zero);
             Random rnd = new Random();
             int triescount = 0;
             do
@@ -228,8 +222,8 @@ namespace BattleCity.NET
             }
             if (!IsDead())
             {
-                graph.DrawImage(m_base, FBattleScreen.GetRotatedRectangle(m_baseDirection, CConstants.tankSize, m_x, m_y));
-                graph.DrawImage(m_turret, FBattleScreen.GetRotatedRectangle(m_turretDirection, CConstants.turretSize, m_x, m_y));
+                graph.DrawImage(m_graphics.base_, FBattleScreen.GetRotatedRectangle(m_baseDirection, CConstants.tankSize, m_x, m_y));
+                graph.DrawImage(m_graphics.turret, FBattleScreen.GetRotatedRectangle(m_turretDirection, CConstants.turretSize, m_x, m_y));
             }
             else
             {
@@ -278,7 +272,7 @@ namespace BattleCity.NET
             {
                 condition.Text = "Dead " + Convert.ToString(m_deadPlace);
             }
-            pbox.Image = m_tank;
+            pbox.Image = m_graphics.tank;
             gb.Visible = true;
         }
         public bool CheckCollision(double x, double y, int length)
@@ -384,9 +378,7 @@ namespace BattleCity.NET
         public void SuccessfulHit() { m_hits++; }
         CTankAI m_ai;
         private bool m_destroyed;
-        private readonly Image m_base;
-        private readonly Image m_turret;
-        private readonly Image m_tank;
+        private readonly CTankGraphics m_graphics;
         private double m_x;
         private double m_y;
         private short m_health;
