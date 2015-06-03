@@ -30,16 +30,14 @@ namespace BattleCity.NET
             explosions = new List<CExplosion>();
             PlaySound("level_start");
             m_medChests = new CManagerMedChest(tanks);
-            for (int i = 0; i < 4; ++i)
+
+            for (int i = 0; i < countTanks; ++i)
             {
                 listProgressBar.Add(new CProgressBar());
                 listProgressBarHealth.Add(new CProgressBar());
-                if (i < countTanks)
-                {
-                    this.Controls.Add(listProgressBar[i]);
-                    this.Controls.Add(listProgressBarHealth[i]);
-                }
-             }
+                this.Controls.Add(listProgressBar[i]);
+                this.Controls.Add(listProgressBarHealth[i]);
+            }
 
             gbPlayer1.Text = playerNames[0];
             gbPlayer2.Text = playerNames[1];
