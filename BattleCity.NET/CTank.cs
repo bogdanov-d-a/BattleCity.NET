@@ -32,9 +32,6 @@ namespace BattleCity.NET
             }
 
             m_health = 100;
-            m_hits = 0;
-            m_shots = 0;
-            m_heals = 0;
             m_baseDirection = CRandom.Next(360);
             m_turretDirection = m_baseDirection;
             m_deadPlace = -1;
@@ -378,9 +375,11 @@ namespace BattleCity.NET
         private double m_x;
         private double m_y;
         private short m_health;
-        private short m_hits;
-        public int m_shots;
-        public int m_heals;
+
+        private short m_hits = 0;
+        public int m_shots = 0;
+        public int m_heals = 0;
+
         private int m_reload;
         private int m_baseDirection;
         private int m_turretDirection;
