@@ -15,7 +15,6 @@ namespace BattleCity.NET
     {
         public Form1()
         {
-            Error = false;
             InitializeComponent();
 
             foreach (FileInfo dllName in new DirectoryInfo(Directory.GetCurrentDirectory()).GetFiles("*.dll"))
@@ -54,16 +53,7 @@ namespace BattleCity.NET
         void LoadImage(PictureBox img, string str)
         {
             img.ImageLocation = str;
-            try
-            {
-                img.Load();
-            }
-            catch
-            {
-                MessageBox.Show(this, "Cannot find images", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Error = true;
-                return;
-            }
+            img.Load();
         }
 
         void UpdateList()
@@ -81,22 +71,19 @@ namespace BattleCity.NET
             if (tanks.Count > 1)
             {
                 lTank2DLL.Text = tanks[1].GetDLL();
-                pbTank2Image.ImageLocation = @"Images\Tanks\" + tanks[1].GetImage();
-                pbTank2Image.Load();
+                LoadImage(pbTank2Image, @"Images\Tanks\" + tanks[1].GetImage());
                 gbTank2.Visible = true;
             }
             if (tanks.Count > 2)
             {
                 lTank3DLL.Text = tanks[2].GetDLL();
-                pbTank3Image.ImageLocation = @"Images\Tanks\" + tanks[2].GetImage();
-                pbTank3Image.Load();
+                LoadImage(pbTank3Image, @"Images\Tanks\" + tanks[2].GetImage());
                 gbTank3.Visible = true;
             }
             if (tanks.Count > 3)
             {
                 lTank4DLL.Text = tanks[3].GetDLL();
-                pbTank4Image.ImageLocation = @"Images\Tanks\" + tanks[3].GetImage();
-                pbTank4Image.Load();
+                LoadImage(pbTank4Image, @"Images\Tanks\" + tanks[3].GetImage());
                 gbTank4.Visible = true;
             }
         }
@@ -160,17 +147,6 @@ namespace BattleCity.NET
             this.Hide();
             frm2.ShowDialog(this);
             Directory.Delete("tmp",true);
-        }
-
-        private bool Error;
-
-        private void Form1_Shown(object sender, EventArgs e)
-        {
-            if (Error)
-            {
-                Application.Exit();
-                return;
-            }
         }
     }
 }

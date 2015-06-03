@@ -345,7 +345,6 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Game Setup";
-            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.gbTank1.ResumeLayout(false);
             this.gbTank1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbTank1Image)).EndInit();
