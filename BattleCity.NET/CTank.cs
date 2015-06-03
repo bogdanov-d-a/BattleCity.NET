@@ -14,16 +14,9 @@ namespace BattleCity.NET
     {
         public CTank(string dll, string image, List<CTank> tanks)
         {
-            LoadDLL(dll);
-            try
-            {
-                m_graphics = new CTankGraphics(image, CConstants.tankSize, CConstants.turretSize, 50);
-            }
-            catch
-            {
-                CConstants.error = 1;
-                return;
-            }
+            m_ai = new CTankAI(dll);
+            m_graphics = new CTankGraphics(image, CConstants.tankSize, CConstants.turretSize, 50);
+
             int triescount = 0;
             do
             {
@@ -38,18 +31,6 @@ namespace BattleCity.NET
             m_deadPlace = -1;
             m_reload = CConstants.reloadTime;
             m_destroyed = false;
-        }
-        private void LoadDLL(string dll)
-        {
-            try
-            {
-                m_ai = new CTankAI(dll);
-            }
-            catch
-            {
-                CConstants.error = 2;
-                return;
-            }
         }
         public void Dispose() 
         {

@@ -89,7 +89,15 @@ namespace BattleCity.NET
 
         public void NewTank(string dll, string image)
         {
-            tanks.Add(new CTank(dll, image, tanks)); 
+            try
+            {
+                tanks.Add(new CTank(dll, image, tanks));
+            }
+            catch
+            {
+                CConstants.error = 2;
+                return;
+            }
         }
 
         private void RefreshInterface()
