@@ -190,7 +190,7 @@ namespace BattleCity.NET
             for (int i = 0; i < explosions.Count; i++)
             {
                 explosions[i].Update();
-                if (explosions[i].IsEnded())
+                if (explosions[i].ObjectIsDead())
                 {
                     explosions.RemoveAt(i);
                 }

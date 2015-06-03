@@ -7,25 +7,16 @@ using System.Threading.Tasks;
 
 namespace BattleCity.NET
 {
-    class CExplosion
+    class CExplosion : CLimitedLifeObject
     {
         private static readonly Image explosion = Image.FromFile(@"Images\explosion.png")
             .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
 
-        public CExplosion(int x, int y)
+        public CExplosion(int x, int y) : base(Convert.ToUInt32(CConstants.explodeTime))
         {
             m_x = x;
             m_y = y;
-            duration = CConstants.explodeTime;
             FBattleScreen.PlaySound("explode");
-        }
-        public void Update()
-        {
-            duration--;
-        }
-        public bool IsEnded()
-        {
-            return duration <= 0;
         }
         public void Draw(Graphics graph)
         {
@@ -34,6 +25,5 @@ namespace BattleCity.NET
 
         private int m_x;
         private int m_y;
-        private int duration;
     }
 }

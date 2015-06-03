@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="CConstants.cs" />
     <Compile Include="CExplosion.cs" />
+    <Compile Include="CLimitedLifeObject.cs" />
     <Compile Include="CManagerMedChest.cs" />
     <Compile Include="CMedicineChest.cs" />
     <Compile Include="CProgressBar.cs">
