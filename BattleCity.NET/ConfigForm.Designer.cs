@@ -32,6 +32,8 @@
             this.medRateLabel = new System.Windows.Forms.Label();
             this.reloadTimeValue = new System.Windows.Forms.NumericUpDown();
             this.medRateValue = new System.Windows.Forms.NumericUpDown();
+            this.disableGamePbCb = new System.Windows.Forms.CheckBox();
+            this.disableSidePbCb = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.reloadTimeValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.medRateValue)).BeginInit();
             this.SuspendLayout();
@@ -98,11 +100,33 @@
             0,
             0});
             // 
+            // disableGamePbCb
+            // 
+            this.disableGamePbCb.AutoSize = true;
+            this.disableGamePbCb.Location = new System.Drawing.Point(15, 61);
+            this.disableGamePbCb.Name = "disableGamePbCb";
+            this.disableGamePbCb.Size = new System.Drawing.Size(167, 17);
+            this.disableGamePbCb.TabIndex = 4;
+            this.disableGamePbCb.Text = "Disable in-game progress bars";
+            this.disableGamePbCb.UseVisualStyleBackColor = true;
+            // 
+            // disableSidePbCb
+            // 
+            this.disableSidePbCb.AutoSize = true;
+            this.disableSidePbCb.Location = new System.Drawing.Point(15, 84);
+            this.disableSidePbCb.Name = "disableSidePbCb";
+            this.disableSidePbCb.Size = new System.Drawing.Size(149, 17);
+            this.disableSidePbCb.TabIndex = 5;
+            this.disableSidePbCb.Text = "Disable side progress bars";
+            this.disableSidePbCb.UseVisualStyleBackColor = true;
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 66);
+            this.ClientSize = new System.Drawing.Size(268, 114);
+            this.Controls.Add(this.disableSidePbCb);
+            this.Controls.Add(this.disableGamePbCb);
             this.Controls.Add(this.medRateValue);
             this.Controls.Add(this.reloadTimeValue);
             this.Controls.Add(this.medRateLabel);
@@ -125,5 +149,7 @@
         private System.Windows.Forms.Label medRateLabel;
         private System.Windows.Forms.NumericUpDown reloadTimeValue;
         private System.Windows.Forms.NumericUpDown medRateValue;
+        private System.Windows.Forms.CheckBox disableGamePbCb;
+        private System.Windows.Forms.CheckBox disableSidePbCb;
     }
 }
