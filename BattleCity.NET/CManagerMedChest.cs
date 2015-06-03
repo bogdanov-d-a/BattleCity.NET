@@ -50,7 +50,15 @@ namespace BattleCity.NET
                     }
                     else if (!m_MedicineChests[i].ObjectIsDead() && m_MedicineChests[i].CheckCollision(Tanks[k].GetX(), Tanks[k].GetY()))
                     {
-                        Tanks[k].SetHealth(10);
+                        if (!m_MedicineChests[i].m_antibonus)
+                        {
+                            Tanks[k].SetHealth(10);
+                        }
+                        else
+                        {
+                            Tanks[k].m_slow = true;
+                        }
+
                         if (!tmp.Contains(i))
                             tmp.Add(i);
                     }

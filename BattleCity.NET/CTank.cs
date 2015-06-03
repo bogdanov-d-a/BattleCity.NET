@@ -180,8 +180,8 @@ namespace BattleCity.NET
                 m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitRotateSpeed(m_ai.getRotateSpeed()) * CConstants.baseRotationRate + 360) % 360;
 
                 int newDirection = LimitValue(m_ai.getDirection(), -1, 1);
-                TryToMoveForward(newDirection * CConstants.tankSpeed * Math.Sin(m_baseDirection * Math.PI / 180),
-                    newDirection * CConstants.tankSpeed * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
+                TryToMoveForward(newDirection * GetTankSpeed() * Math.Sin(m_baseDirection * Math.PI / 180),
+                    newDirection * GetTankSpeed() * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
 
                 FixCollisions(tanks);
                 m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitTurretRotateSpeed(m_ai.getTurretRotateSpeed()) * CConstants.turretRotationRate + 360) % 360;
@@ -313,7 +313,7 @@ namespace BattleCity.NET
             }
             for (int i = 0; i < tanks.Count; i++)
             {
-                if (tanks[i].CheckCollision(m_x, m_y, CConstants.tankSize + CConstants.tankSpeed))//collision with tanks
+                if (tanks[i].CheckCollision(m_x, m_y, CConstants.tankSize + GetTankSpeed()))//collision with tanks
                 {
                     if (!(tanks[i] == this))//it's not me
                     {
@@ -429,6 +429,18 @@ namespace BattleCity.NET
             else
             {
                 return LimitValue(value, 0, 10);
+            }
+        }
+
+        private int GetTankSpeed()
+        {
+            if (!m_slow)
+            {
+                return CConstants.tankSpeed;
+            }
+            else
+            {
+                return CConstants.tankSpeed / 2;
             }
         }
     }

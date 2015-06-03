@@ -14,7 +14,7 @@ namespace BattleCity.NET
 
         private double m_x;
         private double m_y;
-        private bool m_antibonus;
+        public bool m_antibonus;
 
         private bool CoordinatesIsMatchTanks(List<CTank> Tanks, double tempX, double tempY)
         {
