@@ -152,13 +152,17 @@ namespace BattleCity.NET
             List<CMedicineChest> allChest = medChests.GetMedicineChests();
 
             int distance = -1;
+
             {
                 int countTemp = allChest.Count();
                 m_ai.setVisibleChests(countTemp);
-                for (int i = 0; i < allChest.Count(); ++i)
+                for (int i = 0; i < countTemp; ++i)
                 {
                     m_ai.setCoordinatesChest(i, allChest[i].GetX(), allChest[i].GetY());
                 }
+            }
+
+            {
                 m_ai.setCoords(Convert.ToInt32(m_x), Convert.ToInt32(m_y));
                 m_ai.setAngle(m_baseDirection); 
                 m_ai.setTurretAngle(m_turretDirection);
