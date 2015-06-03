@@ -57,16 +57,46 @@
             // reloadTimeValue
             // 
             this.reloadTimeValue.Location = new System.Drawing.Point(130, 9);
+            this.reloadTimeValue.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.reloadTimeValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.reloadTimeValue.Name = "reloadTimeValue";
             this.reloadTimeValue.Size = new System.Drawing.Size(120, 20);
             this.reloadTimeValue.TabIndex = 2;
+            this.reloadTimeValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // medRateValue
             // 
             this.medRateValue.Location = new System.Drawing.Point(130, 35);
+            this.medRateValue.Maximum = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
+            this.medRateValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.medRateValue.Name = "medRateValue";
             this.medRateValue.Size = new System.Drawing.Size(120, 20);
             this.medRateValue.TabIndex = 3;
+            this.medRateValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ConfigForm
             // 
@@ -77,8 +107,11 @@
             this.Controls.Add(this.reloadTimeValue);
             this.Controls.Add(this.medRateLabel);
             this.Controls.Add(this.reloadTimeLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ConfigForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuration";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfigForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.reloadTimeValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.medRateValue)).EndInit();
             this.ResumeLayout(false);

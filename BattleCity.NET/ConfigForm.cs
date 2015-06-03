@@ -15,6 +15,14 @@ namespace BattleCity.NET
         public ConfigForm()
         {
             InitializeComponent();
+            reloadTimeValue.Value = Convert.ToDecimal(CConstants.reloadTime);
+            medRateValue.Value = Convert.ToDecimal(CConstants.medChestAppearRate);
+        }
+
+        private void ConfigForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CConstants.reloadTime = Convert.ToInt32(reloadTimeValue.Value);
+            CConstants.medChestAppearRate = Convert.ToInt32(medRateValue.Value);
         }
     }
 }

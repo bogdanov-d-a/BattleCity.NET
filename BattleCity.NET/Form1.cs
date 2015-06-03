@@ -148,5 +148,11 @@ namespace BattleCity.NET
             frm2.ShowDialog(this);
             Directory.Delete("tmp",true);
         }
+
+        private void configButton_Click(object sender, EventArgs e)
+        {
+            ConfigForm cf = new ConfigForm();
+            cf.ShowDialog();
+        }
     }
 }
