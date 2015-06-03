@@ -138,9 +138,18 @@ namespace BattleCity.NET
                 return;
             }
 
-            FBattleScreen frm2 = new FBattleScreen(tanks.Count,
-                new string[]{ lTank1DLL.Text, lTank2DLL.Text, lTank3DLL.Text, lTank4DLL.Text },
-                CConstants.disableInGamePb, CConstants.disableSidePb);
+            List<string> dlls = new List<string>();
+
+            if (tanks.Count > 0)
+                dlls.Add(lTank1DLL.Text);
+            if (tanks.Count > 1)
+                dlls.Add(lTank2DLL.Text);
+            if (tanks.Count > 2)
+                dlls.Add(lTank3DLL.Text);
+            if (tanks.Count > 3)
+                dlls.Add(lTank4DLL.Text);
+
+            FBattleScreen frm2 = new FBattleScreen(dlls, CConstants.disableInGamePb, CConstants.disableSidePb);
 
             Directory.CreateDirectory("tmp");
             for (int i = 0; i < tanks.Count; i++)

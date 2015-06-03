@@ -13,7 +13,7 @@ namespace BattleCity.NET
 {
     public partial class FBattleScreen : Form
     {
-        public FBattleScreen(int countTanks, string[] playerNames, bool disableGamePb, bool disableSidePb)
+        public FBattleScreen(List<string> dlls, bool disableGamePb, bool disableSidePb)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -29,6 +29,7 @@ namespace BattleCity.NET
             explosions = new List<CExplosion>();
             PlaySound("level_start");
             m_medChests = new CManagerMedChest(tanks);
+            int countTanks = dlls.Count();
 
             for (int i = 0; i < countTanks; ++i)
             {
@@ -42,10 +43,14 @@ namespace BattleCity.NET
                 }
             }
 
-            gbPlayer1.Text = playerNames[0];
-            gbPlayer2.Text = playerNames[1];
-            gbPlayer3.Text = playerNames[2];
-            gbPlayer4.Text = playerNames[3];
+            if (countTanks > 0)
+                gbPlayer1.Text = dlls[0];
+            if (countTanks > 1)
+                gbPlayer2.Text = dlls[1];
+            if (countTanks > 2)
+                gbPlayer3.Text = dlls[2];
+            if (countTanks > 3)
+                gbPlayer4.Text = dlls[3];
 
             m_disableSidePb = disableSidePb;
         }
