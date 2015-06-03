@@ -150,16 +150,8 @@ namespace BattleCity.NET
                 dlls.Add(lTank4DLL.Text);
 
             FBattleScreen frm2 = new FBattleScreen(dlls, CConstants.disableInGamePb, CConstants.disableSidePb);
-
-            Directory.CreateDirectory("tmp");
-            for (int i = 0; i < tanks.Count; i++)
-            {
-                File.Copy(tanks[i].GetDLL(), "tmp/tempDLL" + Convert.ToString(i) + ".dll", true);
-                frm2.NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", tanks[i].GetImage());
-            }
             this.Hide();
             frm2.ShowDialog(this);
-            Directory.Delete("tmp",true);
         }
 
         private void configButton_Click(object sender, EventArgs e)

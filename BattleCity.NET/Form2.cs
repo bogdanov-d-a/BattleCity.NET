@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
+using System.Diagnostics;
 
 namespace BattleCity.NET
 {
@@ -53,6 +55,31 @@ namespace BattleCity.NET
                 gbPlayer4.Text = dlls[3];
 
             m_disableSidePb = disableSidePb;
+
+            Directory.CreateDirectory("tmp");
+            for (int i = 0; i < dlls.Count; i++)
+            {
+                File.Copy(dlls[i], "tmp/tempDLL" + Convert.ToString(i) + ".dll", true);
+                NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", NumberToColor(i) + ".png");
+            }
+        }
+
+        private string NumberToColor(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    return "blue";
+                case 1:
+                    return "green";
+                case 2:
+                    return "red";
+                case 3:
+                    return "yellow";
+                default:
+                    Debug.Assert(false);
+                    return "";
+            }
         }
 
         List<CProgressBar> listProgressBar = new List<CProgressBar>();
