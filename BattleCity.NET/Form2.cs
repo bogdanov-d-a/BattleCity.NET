@@ -260,9 +260,17 @@ namespace BattleCity.NET
             RefreshTanks();
             RefreshShells();
             RefreshExplosions();
-            RefreshInterface();
-            this.Refresh();
+
+            if (m_frameTick == 0)
+            {
+                RefreshInterface();
+                this.Refresh();
+            }
+            m_frameTick = (m_frameTick + 1) % (m_framesToSkip + 1);
         }
+
+        private uint m_frameTick = 0;
+        private uint m_framesToSkip = 0;
 
         private void FBattleScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
