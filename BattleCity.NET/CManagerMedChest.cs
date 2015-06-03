@@ -37,7 +37,7 @@ namespace BattleCity.NET
             m_MedicineChests.Add(new CMedicineChest(m_Tanks, m_MedicineChests));
         }
 
-        public void DrawAllMedchests(Graphics e, List<CTank> Tanks, ref Image imageMedChest)
+        public void DrawAllMedchests(Graphics e, List<CTank> Tanks)
         {
             List<int> tmp = new List<int>();
             for (int i = 0; i < m_MedicineChests.Count(); ++i)
@@ -46,7 +46,7 @@ namespace BattleCity.NET
                 {
                     if (!m_MedicineChests[i].ObjectIsDead() && !m_MedicineChests[i].CheckCollision(Tanks[k].GetX(), Tanks[k].GetY()))
                     {
-                        m_MedicineChests[i].Draw(e, ref imageMedChest);
+                        m_MedicineChests[i].Draw(e);
                     }
                     else if (!m_MedicineChests[i].ObjectIsDead() && m_MedicineChests[i].CheckCollision(Tanks[k].GetX(), Tanks[k].GetY()))
                     {

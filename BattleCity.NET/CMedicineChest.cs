@@ -9,6 +9,8 @@ namespace BattleCity.NET
 {
     class CMedicineChest : CLimitedLifeObject
     {
+        private static Image m_ImageMedicineChest = Image.FromFile(@"Images\MedicineChest.png");
+
         private double m_x;
         private double m_y;
        
@@ -67,9 +69,9 @@ namespace BattleCity.NET
             return m_y;
         }
 
-        public void Draw(Graphics graph, ref Image m_MedicineChest)
+        public void Draw(Graphics graph)
         {
-            graph.DrawImage(m_MedicineChest, (float)m_x, (float)m_y);
+            graph.DrawImage(m_ImageMedicineChest, (float)m_x, (float)m_y);
         }
 
         public bool CheckCollision(double x, double y)

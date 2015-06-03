@@ -21,7 +21,6 @@ namespace BattleCity.NET
                ControlStyles.DoubleBuffer, true);
             this.BackgroundImage = Image.FromFile(@"Images\fon.png");
             this.BackgroundImageLayout = ImageLayout.None;
-            m_ImageMedicineChest = Image.FromFile(@"Images\" + igmeName);
             timer1.Interval = CConstants.refreshTime;
             this.Width = CConstants.formWidth + 218;
             this.Height = CConstants.formHeight + 47;
@@ -58,8 +57,6 @@ namespace BattleCity.NET
         private List<CExplosion> explosions;
         private short deadPlace = 1;
         private CManagerMedChest m_medChests;
-        private  Image m_ImageMedicineChest;
-        private const string igmeName = "MedicineChest.png";
         private readonly bool m_disableSidePb;
 
         public static Point[] GetRotatedRectangle(int degree, int size, double x0, double y0)
@@ -129,7 +126,7 @@ namespace BattleCity.NET
             {
                 explosions[i].Draw(e.Graphics);
             }
-            m_medChests.DrawAllMedchests(e.Graphics, tanks, ref m_ImageMedicineChest);
+            m_medChests.DrawAllMedchests(e.Graphics, tanks);
         }
         private void RefreshTanks()
         {
