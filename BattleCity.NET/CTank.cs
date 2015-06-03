@@ -17,13 +17,17 @@ namespace BattleCity.NET
             m_ai = new CTankAI(dll);
             m_graphics = new CTankGraphics(image, CConstants.tankSize, CConstants.turretSize, 50);
 
-            int triescount = 0;
-            do
+            for (int tryCnt = 0; tryCnt < 100; ++tryCnt)
             {
                 m_x = CRandom.Next(CConstants.formWidth - CConstants.tankSize) + CConstants.tankSize / 2;
                 m_y = CRandom.Next(CConstants.formHeight - CConstants.tankSize) + CConstants.tankSize / 2;
-                triescount++;
-            } while (!PlacementIsFree(m_x, m_y, tanks) && triescount < 500);
+
+                if (PlacementIsFree(m_x, m_y, tanks))
+                {
+                    break;
+                }
+            }
+
             m_health = 100;
             m_hits = 0;
             m_baseDirection = CRandom.Next(360);
@@ -356,7 +360,7 @@ namespace BattleCity.NET
         public bool IsDead() { return m_health <= 0; }
         public void SetDeadPlace(short deadNumber) { m_deadPlace = deadNumber; }
         public void SuccessfulHit() { m_hits++; }
-        CTankAI m_ai;
+        private readonly CTankAI m_ai;
         private bool m_destroyed;
         private readonly CTankGraphics m_graphics;
         private double m_x;
