@@ -177,14 +177,14 @@ namespace BattleCity.NET
                         visibleEnemies[i].m_baseDirection, visibleEnemies[i].m_turretDirection, visibleEnemies[i].m_health);
                 }
                 m_ai.update();
-                m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitValue(m_ai.getRotateSpeed(), 0, 10) * CConstants.baseRotationRate + 360) % 360;
+                m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitRotateSpeed(m_ai.getRotateSpeed()) * CConstants.baseRotationRate + 360) % 360;
 
                 int newDirection = LimitValue(m_ai.getDirection(), -1, 1);
                 TryToMoveForward(newDirection * CConstants.tankSpeed * Math.Sin(m_baseDirection * Math.PI / 180),
                     newDirection * CConstants.tankSpeed * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
 
                 FixCollisions(tanks);
-                m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitValue(m_ai.getTurretRotateSpeed(), 0, 20) * CConstants.turretRotationRate + 360) % 360;
+                m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitTurretRotateSpeed(m_ai.getTurretRotateSpeed()) * CConstants.turretRotationRate + 360) % 360;
 
                 distance = m_ai.getFireDistance();
                 if (distance < -1)
@@ -379,6 +379,7 @@ namespace BattleCity.NET
         private double m_x;
         private double m_y;
         private short m_health;
+        public bool m_slow = false;
 
         private short m_hits = 0;
         public int m_shots = 0;
@@ -404,6 +405,30 @@ namespace BattleCity.NET
             else
             {
                 return value;
+            }
+        }
+
+        private int LimitRotateSpeed(int value)
+        {
+            if (!m_slow)
+            {
+                return LimitValue(value, 0, 10);
+            }
+            else
+            {
+                return LimitValue(value, 0, 5);
+            }
+        }
+
+        private int LimitTurretRotateSpeed(int value)
+        {
+            if (!m_slow)
+            {
+                return LimitValue(value, 0, 20);
+            }
+            else
+            {
+                return LimitValue(value, 0, 10);
             }
         }
     }
