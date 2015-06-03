@@ -241,7 +241,7 @@ namespace BattleCity.NET
         }
 
 
-        public void SetTankInfo(ProgressBar pbHealth, ProgressBar pbReload, Label hits, Label condition, PictureBox pbox, GroupBox gb, CProgressBar progressBar, CProgressBar progressBarHealth)
+        public void SetTankInfo(ProgressBar pbHealth, ProgressBar pbReload, Label hits, Label condition, PictureBox pbox, GroupBox gb, CProgressBar progressBar, CProgressBar progressBarHealth, bool disableSidePb)
         {
             pbHealth.Value = m_health;
             pbReload.Value = m_reload * pbReload.Maximum / CConstants.reloadTime;
@@ -258,7 +258,11 @@ namespace BattleCity.NET
                 condition.Text = "Dead " + Convert.ToString(m_deadPlace);
             }
             pbox.Image = m_graphics.tank;
-            gb.Visible = true;
+
+            if (!disableSidePb)
+            {
+                gb.Visible = true;
+            }
         }
         public bool CheckCollision(double x, double y, int length)
         {

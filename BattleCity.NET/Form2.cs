@@ -13,7 +13,7 @@ namespace BattleCity.NET
 {
     public partial class FBattleScreen : Form
     {
-        public FBattleScreen(int countTanks, string[] playerNames)
+        public FBattleScreen(int countTanks, string[] playerNames, bool disableGamePb, bool disableSidePb)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -35,15 +35,22 @@ namespace BattleCity.NET
             {
                 listProgressBar.Add(new CProgressBar());
                 listProgressBarHealth.Add(new CProgressBar());
-                this.Controls.Add(listProgressBar[i]);
-                this.Controls.Add(listProgressBarHealth[i]);
+
+                if (!disableGamePb)
+                {
+                    this.Controls.Add(listProgressBar[i]);
+                    this.Controls.Add(listProgressBarHealth[i]);
+                }
             }
 
             gbPlayer1.Text = playerNames[0];
             gbPlayer2.Text = playerNames[1];
             gbPlayer3.Text = playerNames[2];
             gbPlayer4.Text = playerNames[3];
+
+            m_disableSidePb = disableSidePb;
         }
+
         List<CProgressBar> listProgressBar = new List<CProgressBar>();
         List<CProgressBar> listProgressBarHealth = new List<CProgressBar>();
         private List<CTank> tanks;
@@ -53,6 +60,8 @@ namespace BattleCity.NET
         private CManagerMedChest m_medChests;
         private  Image m_ImageMedicineChest;
         private const string igmeName = "MedicineChest.png";
+        private readonly bool m_disableSidePb;
+
         public static Point[] GetRotatedRectangle(int degree, int size, double x0, double y0)
         {
             int x = -size / 2;
@@ -90,17 +99,17 @@ namespace BattleCity.NET
             tanks.Add(new CTank(dll, image, tanks));
         }
 
-        private void RefreshInterface()
+        private void RefreshInterface(bool disableSidePb)
         {
           
             if (tanks.Count < 1) return;
-            tanks[0].SetTankInfo(pbPlayer1Health, pbPlayer1Reload, lPlayer1Hits, lPlayer1Condition, pbTank1Image, gbPlayer1, listProgressBar[0], listProgressBarHealth[0]);
+            tanks[0].SetTankInfo(pbPlayer1Health, pbPlayer1Reload, lPlayer1Hits, lPlayer1Condition, pbTank1Image, gbPlayer1, listProgressBar[0], listProgressBarHealth[0], disableSidePb);
             if (tanks.Count < 2) return;
-            tanks[1].SetTankInfo(pbPlayer2Health, pbPlayer2Reload, lPlayer2Hits, lPlayer2Condition, pbTank2Image, gbPlayer2, listProgressBar[1], listProgressBarHealth[1]);
+            tanks[1].SetTankInfo(pbPlayer2Health, pbPlayer2Reload, lPlayer2Hits, lPlayer2Condition, pbTank2Image, gbPlayer2, listProgressBar[1], listProgressBarHealth[1], disableSidePb);
             if (tanks.Count < 3) return;
-            tanks[2].SetTankInfo(pbPlayer3Health, pbPlayer3Reload, lPlayer3Hits, lPlayer3Condition, pbTank3Image, gbPlayer3, listProgressBar[2], listProgressBarHealth[2]);
+            tanks[2].SetTankInfo(pbPlayer3Health, pbPlayer3Reload, lPlayer3Hits, lPlayer3Condition, pbTank3Image, gbPlayer3, listProgressBar[2], listProgressBarHealth[2], disableSidePb);
             if (tanks.Count < 4) return;
-            tanks[3].SetTankInfo(pbPlayer4Health, pbPlayer4Reload, lPlayer4Hits, lPlayer4Condition, pbTank4Image, gbPlayer4, listProgressBar[3], listProgressBarHealth[3]);
+            tanks[3].SetTankInfo(pbPlayer4Health, pbPlayer4Reload, lPlayer4Hits, lPlayer4Condition, pbTank4Image, gbPlayer4, listProgressBar[3], listProgressBarHealth[3], disableSidePb);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -261,7 +270,7 @@ namespace BattleCity.NET
 
             if (m_frameTick == 0)
             {
-                RefreshInterface();
+                RefreshInterface(m_disableSidePb);
                 this.Refresh();
             }
             m_frameTick = (m_frameTick + 1) % (m_framesToSkip + 1);
