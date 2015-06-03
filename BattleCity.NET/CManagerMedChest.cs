@@ -10,13 +10,11 @@ namespace BattleCity.NET
     class CManagerMedChest
     {
         List<CMedicineChest> m_MedicineChests;
-        Random rnd;
         List<CTank> m_Tanks;
         public CManagerMedChest(List<CTank> Tanks)
         {
-            rnd = new Random();
             m_MedicineChests = new List<CMedicineChest>();
-            m_MedicineChests.Add(new CMedicineChest(rnd));
+            m_MedicineChests.Add(new CMedicineChest());
             m_Tanks = Tanks;
         }
 
@@ -27,7 +25,7 @@ namespace BattleCity.NET
 
         public void AddMedChest()
         {
-            m_MedicineChests.Add(new CMedicineChest(rnd, m_Tanks, m_MedicineChests));
+            m_MedicineChests.Add(new CMedicineChest(m_Tanks, m_MedicineChests));
         }
 
         public void DrawAllMedchests(Graphics e, List<CTank> Tanks, ref Image imageMedChest)

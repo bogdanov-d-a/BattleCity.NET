@@ -75,6 +75,7 @@
     <Compile Include="CProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CRandom.cs" />
     <Compile Include="CShell.cs" />
     <Compile Include="CShellTrack.cs" />
     <Compile Include="CTank.cs" />

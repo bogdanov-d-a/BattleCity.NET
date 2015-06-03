@@ -277,8 +277,7 @@ namespace BattleCity.NET
                     return;
                 }
             }
-            Random rnd = new Random();
-            if (rnd.Next(1, 1000) <= 10)
+            if (CRandom.Next(1, 1000) <= 10)
             {
                 m_medChests.AddMedChest();
             }

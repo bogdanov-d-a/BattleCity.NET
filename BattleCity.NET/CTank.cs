@@ -24,17 +24,16 @@ namespace BattleCity.NET
                 CConstants.error = 1;
                 return;
             }
-            Random rnd = new Random();
             int triescount = 0;
             do
             {
-                m_x = rnd.Next(CConstants.formWidth - CConstants.tankSize) + CConstants.tankSize / 2;
-                m_y = rnd.Next(CConstants.formHeight - CConstants.tankSize) + CConstants.tankSize / 2;
+                m_x = CRandom.Next(CConstants.formWidth - CConstants.tankSize) + CConstants.tankSize / 2;
+                m_y = CRandom.Next(CConstants.formHeight - CConstants.tankSize) + CConstants.tankSize / 2;
                 triescount++;
             } while (!PlacementIsFree(m_x, m_y, tanks) && triescount < 500);
             m_health = 100;
             m_hits = 0;
-            m_baseDirection = rnd.Next(360);
+            m_baseDirection = CRandom.Next(360);
             m_turretDirection = m_baseDirection;
             m_deadPlace = -1;
             m_reload = CConstants.reloadTime;

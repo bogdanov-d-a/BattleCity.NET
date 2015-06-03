@@ -40,15 +40,15 @@ namespace BattleCity.NET
             return false;
         }
 
-        public CMedicineChest(Random rnd, List<CTank> Tanks, List<CMedicineChest> medChests)
+        public CMedicineChest(List<CTank> Tanks, List<CMedicineChest> medChests)
         {
             m_timeBegin = (int)(DateTime.Now.Second);
             double tempX = 0;
             double tempY = 0;
             do
             {
-                tempX = rnd.Next(20, 590);
-                tempY = rnd.Next(20, 440);
+                tempX = CRandom.Next(20, 590);
+                tempY = CRandom.Next(20, 440);
             } while (CoordinatesIsMatchTanks(Tanks, tempX, tempY));
             m_x = tempX;
             m_y = tempY;
@@ -56,11 +56,11 @@ namespace BattleCity.NET
             
         }
 
-        public CMedicineChest(Random rnd)
+        public CMedicineChest()
         {
             m_timeBegin = (int)(DateTime.Now.Second);
-            m_x = rnd.Next(1, 500);
-            m_y = rnd.Next(1, 500);
+            m_x = CRandom.Next(1, 500);
+            m_y = CRandom.Next(1, 500);
 
 
         }
