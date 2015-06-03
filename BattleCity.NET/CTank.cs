@@ -338,6 +338,7 @@ namespace BattleCity.NET
             }
 
             m_dmgTaken += damage;
+            ++m_hitsTaken;
         }
 
         public double GetX()
@@ -383,6 +384,7 @@ namespace BattleCity.NET
         public int m_shots = 0;
         public int m_heals = 0;
         public int m_dmgTaken = 0;
+        public int m_hitsTaken = 0;
 
         private int m_reload;
         private int m_baseDirection;
