@@ -152,7 +152,6 @@ namespace BattleCity.NET
             List<CMedicineChest> allChest = medChests.GetMedicineChests();
 
             int distance = -1;
-            try
             {
                 int countTemp = allChest.Count();
                 m_ai.setVisibleChests(countTemp);
@@ -186,11 +185,6 @@ namespace BattleCity.NET
                 {
                     distance = -1;
                 }
-            }
-            catch
-            {
-                CConstants.error = 2;
-                return;
             }
             if (distance != -1 && m_reload == 0)
             {
