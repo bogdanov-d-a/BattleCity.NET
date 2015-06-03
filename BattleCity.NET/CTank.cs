@@ -34,6 +34,7 @@ namespace BattleCity.NET
             m_health = 100;
             m_hits = 0;
             m_shots = 0;
+            m_heals = 0;
             m_baseDirection = CRandom.Next(360);
             m_turretDirection = m_baseDirection;
             m_deadPlace = -1;
@@ -355,6 +356,7 @@ namespace BattleCity.NET
             {
                 return;
             }
+
             if (m_health <= 90)
             {
                 m_health += health;
@@ -363,7 +365,10 @@ namespace BattleCity.NET
             {
                 m_health = 100;
             }
+
+            ++m_heals;
         }
+
         public bool IsDead() { return m_health <= 0; }
         public void SetDeadPlace(short deadNumber) { m_deadPlace = deadNumber; }
         public void SuccessfulHit() { m_hits++; }
@@ -375,6 +380,7 @@ namespace BattleCity.NET
         private short m_health;
         private short m_hits;
         public int m_shots;
+        public int m_heals;
         private int m_reload;
         private int m_baseDirection;
         private int m_turretDirection;
