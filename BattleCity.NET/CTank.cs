@@ -12,46 +12,6 @@ namespace BattleCity.NET
 {
     class CTank : IDisposable
     {
-        [DllImport("kernel32.dll", EntryPoint = "LoadLibrary")]
-        static extern IntPtr LoadLibrary(string dllToLoad);
-        [DllImport("kernel32.dll", EntryPoint = "GetProcAddress")]
-        static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
-        [DllImport("kernel32.dll", EntryPoint = "FreeLibrary")]
-        static extern bool FreeLibrary(IntPtr hModule);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] 
-        delegate void SetCoords(int x, int y);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetAngle(int angle);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetTurretAngle(int angle);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetCollisionStatus(bool isCollided);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetLivePercent(int percent);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetVisilbeEnemyCount(int count);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetEnemyProteries(int enemyID, int x, int y, int angle, int turretAngle, int livePercent);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetDirection();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetRotateDirection();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetRotateSpeed();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetTurretRotateDirection();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetTurretRotateSpeed();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate int GetFireDistance();
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetVisibleChests(int count);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void SetCoordinatesChest(int id, double x, double y);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void Update();
-        
-
         public CTank(string dll, string image, List<CTank> tanks)
         {
             LoadDLL(dll);
@@ -90,23 +50,7 @@ namespace BattleCity.NET
         {
             try
             {
-                m_dll = LoadLibrary(dll);
-                setcoords = (SetCoords)GetFunction(m_dll, typeof(SetCoords), "SetCoords");
-                setangle = (SetAngle)GetFunction(m_dll, typeof(SetAngle), "SetAngle");
-                setturrentAngle = (SetTurretAngle)GetFunction(m_dll, typeof(SetTurretAngle), "SetTurretAngle");
-                setcollisionstatus = (SetCollisionStatus)GetFunction(m_dll, typeof(SetCollisionStatus), "SetCollisionStatus");
-                setlivepercent = (SetLivePercent)GetFunction(m_dll, typeof(SetLivePercent), "SetLivePercent");
-                setvisibleenemycount = (SetVisilbeEnemyCount)GetFunction(m_dll, typeof(SetVisilbeEnemyCount), "SetVisilbeEnemyCount");
-                setenemyproteries = (SetEnemyProteries)GetFunction(m_dll, typeof(SetEnemyProteries), "SetEnemyProteries");
-                update = (Update)GetFunction(m_dll, typeof(Update), "Update");
-                getrotatedirection = (GetRotateDirection)GetFunction(m_dll, typeof(GetRotateDirection), "GetRotateDirection");
-                getrotatespeed = (GetRotateSpeed)GetFunction(m_dll, typeof(GetRotateSpeed), "GetRotateSpeed");
-                getdirection = (GetDirection)GetFunction(m_dll, typeof(GetDirection), "GetDirection");
-                getturretrotatedirection = (GetTurretRotateDirection)GetFunction(m_dll, typeof(GetTurretRotateDirection), "GetTurretRotateDirection");
-                getturretrotatespeed = (GetTurretRotateSpeed)GetFunction(m_dll, typeof(GetTurretRotateSpeed), "GetTurretRotateSpeed");
-                getfiredistance = (GetFireDistance)GetFunction(m_dll, typeof(GetFireDistance), "GetFireDistance");
-                setcoordinateschest = (SetCoordinatesChest)GetFunction(m_dll, typeof(SetCoordinatesChest), "SetCoordinatesChest");
-                setvisiblechests = (SetVisibleChests)GetFunction(m_dll, typeof(SetVisibleChests), "SetVisibleChests");
+                m_ai = new CTankAI(dll);
             }
             catch
             {
@@ -114,14 +58,9 @@ namespace BattleCity.NET
                 return;
             }
         }
-        private System.Delegate GetFunction(IntPtr dll, Type type, string functionName)
-        {
-            IntPtr ptr = GetProcAddress(dll, functionName);
-            return Marshal.GetDelegateForFunctionPointer(ptr, type);
-        }
         public void Dispose() 
         {
-            FreeLibrary(m_dll);
+            m_ai.Dispose();
         }
         private bool PlacementIsFree(double x, double y, List<CTank> tanks)
         {
@@ -238,33 +177,33 @@ namespace BattleCity.NET
             try
             {
                 int countTemp = allChest.Count();
-                setvisiblechests(countTemp);
+                m_ai.setVisibleChests(countTemp);
                 for (int i = 0; i < allChest.Count(); ++i)
                 {
-                    setcoordinateschest(i, allChest[i].GetX(), allChest[i].GetY());
+                    m_ai.setCoordinatesChest(i, allChest[i].GetX(), allChest[i].GetY());
                 }
-                setcoords(Convert.ToInt32(m_x), Convert.ToInt32(m_y));
-                setangle(m_baseDirection); 
-                setturrentAngle(m_turretDirection);
-                setcollisionstatus(DetectCollisions(tanks));
-                setlivepercent(m_health);
-                setvisibleenemycount(visibleEnemies.Count);
+                m_ai.setCoords(Convert.ToInt32(m_x), Convert.ToInt32(m_y));
+                m_ai.setAngle(m_baseDirection); 
+                m_ai.setTurretAngle(m_turretDirection);
+                m_ai.setCollisionStatus(DetectCollisions(tanks));
+                m_ai.setLivePercent(m_health);
+                m_ai.setVisilbeEnemyCount(visibleEnemies.Count);
                 for (int i = 0; i < visibleEnemies.Count; i++)
                 {
-                    setenemyproteries(i, Convert.ToInt32(visibleEnemies[i].m_x), Convert.ToInt32(visibleEnemies[i].m_y),
+                    m_ai.setEnemyProteries(i, Convert.ToInt32(visibleEnemies[i].m_x), Convert.ToInt32(visibleEnemies[i].m_y),
                         visibleEnemies[i].m_baseDirection, visibleEnemies[i].m_turretDirection, visibleEnemies[i].m_health);
                 }
-                update();
-                m_baseDirection += Convert.ToInt32(LimitValue(getrotatedirection(), -1, 1) * LimitValue(getrotatespeed(), 0, 10) * CConstants.baseRotationRate + 360) % 360;
+                m_ai.update();
+                m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitValue(m_ai.getRotateSpeed(), 0, 10) * CConstants.baseRotationRate + 360) % 360;
 
-                int newDirection = LimitValue(getdirection(), -1, 1);
+                int newDirection = LimitValue(m_ai.getDirection(), -1, 1);
                 TryToMoveForward(newDirection * CConstants.tankSpeed * Math.Sin(m_baseDirection * Math.PI / 180),
                     newDirection * CConstants.tankSpeed * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
 
                 FixCollisions(tanks);
-                m_turretDirection += Convert.ToInt32(LimitValue(getturretrotatedirection(), -1, 1) * LimitValue(getturretrotatespeed(), 0, 20) * CConstants.turretRotationRate + 360) % 360;
+                m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitValue(m_ai.getTurretRotateSpeed(), 0, 20) * CConstants.turretRotationRate + 360) % 360;
 
-                distance = getfiredistance();
+                distance = m_ai.getFireDistance();
                 if (distance < -1)
                 {
                     distance = -1;
@@ -443,23 +382,7 @@ namespace BattleCity.NET
         public bool IsDead() { return m_health <= 0; }
         public void SetDeadPlace(short deadNumber) { m_deadPlace = deadNumber; }
         public void SuccessfulHit() { m_hits++; }
-        IntPtr m_dll;
-        SetCoords setcoords;
-        SetAngle setangle;
-        SetTurretAngle setturrentAngle;
-        SetCollisionStatus setcollisionstatus;
-        SetLivePercent setlivepercent;
-        SetVisilbeEnemyCount setvisibleenemycount;
-        SetEnemyProteries setenemyproteries;
-        Update update;
-        GetRotateDirection getrotatedirection;
-        GetRotateSpeed getrotatespeed;
-        GetDirection getdirection;
-        GetTurretRotateDirection getturretrotatedirection;
-        GetTurretRotateSpeed getturretrotatespeed;
-        GetFireDistance getfiredistance;
-        SetCoordinatesChest setcoordinateschest;
-        SetVisibleChests setvisiblechests;
+        CTankAI m_ai;
         private bool m_destroyed;
         private readonly Image m_base;
         private readonly Image m_turret;
