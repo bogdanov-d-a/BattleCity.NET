@@ -89,15 +89,7 @@ namespace BattleCity.NET
 
         public void NewTank(string dll, string image)
         {
-            try
-            {
-                tanks.Add(new CTank(dll, image, tanks));
-            }
-            catch
-            {
-                CConstants.error = 2;
-                return;
-            }
+            tanks.Add(new CTank(dll, image, tanks));
         }
 
         private void RefreshInterface()
@@ -205,32 +197,6 @@ namespace BattleCity.NET
             }
         }
 
-        private void CheckForError()
-        {
-            if (CConstants.error == 0)
-            {
-                return;
-            }
-            timer1.Enabled = false;
-            DialogResult result = DialogResult.OK;
-            if (CConstants.error == 1)
-            {
-                result = MessageBox.Show(this, "Cannot open image", "File not found!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (CConstants.error == 2)
-            {
-                result = MessageBox.Show(this, "Cannot find function in dll", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                result = MessageBox.Show(this, "Unknown error", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (result == DialogResult.OK)
-            {
-                Application.Exit();
-            }
-        }
-
         private bool GameOver()
         {
             int alivePlayers = 0;
@@ -267,7 +233,6 @@ namespace BattleCity.NET
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            CheckForError();
             if (GameOver())
             {
                 timer1.Enabled = false;
