@@ -17,34 +17,25 @@ namespace BattleCity.NET
         {
             Error = false;
             InitializeComponent();
-            DirectoryInfo dir = new DirectoryInfo(Directory.GetCurrentDirectory());
-            foreach (FileInfo files in dir.GetFiles("*.dll"))
+
+            foreach (FileInfo dllName in new DirectoryInfo(Directory.GetCurrentDirectory()).GetFiles("*.dll"))
             {
-                cbDLLs.Items.Add(Path.GetFileName(files.FullName));
+                cbDLLs.Items.Add(Path.GetFileName(dllName.FullName));
             }
             if (cbDLLs.Items.Count > 0)
             {
                 cbDLLs.Text = cbDLLs.Items[0].ToString();
             }
-            dir = new DirectoryInfo(Directory.GetCurrentDirectory() + @"\Images\Tanks");
-            try
+
+            foreach (FileInfo imageName in new DirectoryInfo(Directory.GetCurrentDirectory() + @"\Images\Tanks").GetFiles("*.png"))
             {
-                foreach (FileInfo files in dir.GetFiles("*.png"))
-                {
-                    cbImage.Items.Add(Path.GetFileName(files.FullName));
-                }
-            }
-            catch
-            {
-                MessageBox.Show(this, "Cannot find images", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Error = true;
-                return;
+                cbImage.Items.Add(Path.GetFileName(imageName.FullName));
             }
             if (cbImage.Items.Count > 0)
             {
                 cbImage.Text = cbImage.Items[0].ToString();
             }
-            dir = null;
+
             tanks = new List<CTankInfo>();
         }
 
