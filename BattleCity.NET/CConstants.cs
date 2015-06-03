@@ -23,5 +23,6 @@ namespace BattleCity.NET
         public static int shellSize = 16;
         public static int explodeTime = 200 / refreshTime;
         public static int medChestsSize = 20;
+        public static uint medChestLifetime = 400;
     }
 }

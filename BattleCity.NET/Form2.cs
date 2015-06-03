@@ -250,10 +250,13 @@ namespace BattleCity.NET
                     return;
                 }
             }
+
+            m_medChests.Update();
             if (CRandom.Next(1, 1000) <= 10)
             {
                 m_medChests.AddMedChest();
             }
+
             RefreshTanks();
             RefreshShells();
             RefreshExplosions();

@@ -7,13 +7,11 @@ using System.Drawing;
 
 namespace BattleCity.NET
 {
-    class CMedicineChest
+    class CMedicineChest : CLimitedLifeObject
     {
         private double m_x;
         private double m_y;
        
-        private int m_timeBegin;
-
         private bool CoordinatesIsMatchTanks(List<CTank> Tanks, double tempX, double tempY)
         {
             for (int i = 0; i < Tanks.Count(); ++i)
@@ -40,9 +38,8 @@ namespace BattleCity.NET
             return false;
         }
 
-        public CMedicineChest(List<CTank> Tanks, List<CMedicineChest> medChests)
+        public CMedicineChest(List<CTank> Tanks, List<CMedicineChest> medChests) : base(CConstants.medChestLifetime)
         {
-            m_timeBegin = (int)(DateTime.Now.Second);
             double tempX = 0;
             double tempY = 0;
             do
@@ -52,17 +49,12 @@ namespace BattleCity.NET
             } while (CoordinatesIsMatchTanks(Tanks, tempX, tempY));
             m_x = tempX;
             m_y = tempY;
-
-            
         }
 
-        public CMedicineChest()
+        public CMedicineChest() : base(CConstants.medChestLifetime)
         {
-            m_timeBegin = (int)(DateTime.Now.Second);
             m_x = CRandom.Next(1, 500);
             m_y = CRandom.Next(1, 500);
-
-
         }
 
         public double GetX()
@@ -75,14 +67,6 @@ namespace BattleCity.NET
             return m_y;
         }
 
-        public bool IsVisible()
-        {
-            int diff = (int)(DateTime.Now.Second) - m_timeBegin;
-            if (diff < 20)
-                return true;
-            return false;
-        }
-
         public void Draw(Graphics graph, ref Image m_MedicineChest)
         {
             graph.DrawImage(m_MedicineChest, (float)m_x, (float)m_y);
@@ -90,7 +74,7 @@ namespace BattleCity.NET
 
         public bool CheckCollision(double x, double y)
         {
-            if (IsVisible() && Math.Abs(m_x - x) < CConstants.tankSize / 2 && Math.Abs(m_y - y) < CConstants.tankSize / 2)
+            if (!ObjectIsDead() && Math.Abs(m_x - x) < CConstants.tankSize / 2 && Math.Abs(m_y - y) < CConstants.tankSize / 2)
             {
                 return true;
             }
