@@ -259,7 +259,7 @@ namespace BattleCity.NET
             }
 
             m_medChests.Update();
-            if (CRandom.Next(1, 1000) <= 10)
+            if (CRandom.Next(CConstants.medChestAppearRate) == 0)
             {
                 m_medChests.AddMedChest();
             }

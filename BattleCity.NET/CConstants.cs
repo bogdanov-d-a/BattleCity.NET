@@ -24,5 +24,6 @@ namespace BattleCity.NET
         public static int explodeTime = 200 / refreshTime;
         public static int medChestsSize = 20;
         public static uint medChestLifetime = 400;
+        public static int medChestAppearRate = 100;
     }
 }
