@@ -9,6 +9,9 @@ namespace BattleCity.NET
 {
     class CExplosion
     {
+        private static readonly Image explosion = Image.FromFile(@"Images\explosion.png")
+            .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
+
         public CExplosion(int x, int y)
         {
             m_x = x;
@@ -26,7 +29,7 @@ namespace BattleCity.NET
         }
         public void Draw(Graphics graph)
         {
-            graph.DrawImage(CConstants.explosion, Convert.ToInt32(m_x - CConstants.tankSize / 2), Convert.ToInt32(m_y - CConstants.tankSize / 2));
+            graph.DrawImage(explosion, Convert.ToInt32(m_x - CConstants.tankSize / 2), Convert.ToInt32(m_y - CConstants.tankSize / 2));
         }
 
         private int m_x;

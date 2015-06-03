@@ -10,27 +10,6 @@ namespace BattleCity.NET
 {
     class CConstants
     {
-        static CConstants()
-        {
-            error = 0;
-            try
-            {
-                explosion = Image.FromFile(@"Images\explosion.png")
-                    .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
-
-                shell = Image.FromFile(@"Images\shell.png")
-                    .GetThumbnailImage(CConstants.shellSize, CConstants.shellSize, null, IntPtr.Zero);
-
-                wrecked = Image.FromFile(@"Images\wrecked.png")
-                    .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
-            }
-            catch
-            {
-                error = 1;
-                return;
-            }
-        }
-
         public static int refreshTime = 20;
         public static int tankSize = 64;
         public static int turretSize = 80;
@@ -44,9 +23,6 @@ namespace BattleCity.NET
         public static int shellSize = 16;
         public static int explodeTime = 200 / refreshTime;
         public static int medChestsSize = 20;
-        public static readonly Image explosion;
-        public static readonly Image shell;
-        public static readonly Image wrecked;
-        public static int error;
+        public static int error = 0;
     }
 }

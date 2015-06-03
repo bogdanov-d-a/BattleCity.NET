@@ -10,6 +10,9 @@ namespace BattleCity.NET
 {
     class CShell
     {
+        private static readonly Image shell = Image.FromFile(@"Images\shell.png")
+            .GetThumbnailImage(CConstants.shellSize, CConstants.shellSize, null, IntPtr.Zero);
+
         public CShell(int x, int y, int direction, int range, CTank owner)
         {
             m_x = x + Convert.ToInt64(32 * Math.Sin(direction * Math.PI / 180));
@@ -55,7 +58,7 @@ namespace BattleCity.NET
         }
         public void Draw(Graphics graph)
         {
-            graph.DrawImage(CConstants.shell, FBattleScreen.GetRotatedRectangle(m_direction, CConstants.shellSize, m_x, m_y));
+            graph.DrawImage(shell, FBattleScreen.GetRotatedRectangle(m_direction, CConstants.shellSize, m_x, m_y));
         }
         public CExplosion GetExplosion()
         {

@@ -12,6 +12,9 @@ namespace BattleCity.NET
 {
     class CTank : IDisposable
     {
+        private static readonly Image wrecked = Image.FromFile(@"Images\wrecked.png")
+            .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
+
         public CTank(string dll, string image, List<CTank> tanks)
         {
             m_ai = new CTankAI(dll);
@@ -209,7 +212,7 @@ namespace BattleCity.NET
             }
             else
             {
-                graph.DrawImage(CConstants.wrecked, FBattleScreen.GetRotatedRectangle(m_baseDirection, CConstants.tankSize, m_x, m_y));
+                graph.DrawImage(wrecked, FBattleScreen.GetRotatedRectangle(m_baseDirection, CConstants.tankSize, m_x, m_y));
             }
         }
         private void SetProgressBar(CProgressBar progress, int offset, int valPreaload, Color color)
