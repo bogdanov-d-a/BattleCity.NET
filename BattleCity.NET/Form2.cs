@@ -57,11 +57,22 @@ namespace BattleCity.NET
             m_disableSidePb = disableSidePb;
 
             Directory.CreateDirectory("tmp");
-            for (int i = 0; i < dlls.Count; i++)
+
+            try
             {
-                File.Copy(dlls[i], "tmp/tempDLL" + Convert.ToString(i) + ".dll", true);
-                NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", NumberToColor(i) + ".png");
+                for (int i = 0; i < dlls.Count; i++)
+                {
+                    File.Copy(dlls[i], "tmp/tempDLL" + Convert.ToString(i) + ".dll", true);
+                    NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", NumberToColor(i) + ".png");
+                }
             }
+            catch (Exception e)
+            {
+                DisposeOfTanks();
+                throw e;
+            }
+
+            timer1.Enabled = true;
         }
 
         private string NumberToColor(int num)
@@ -310,6 +321,16 @@ namespace BattleCity.NET
 
         private void FBattleScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DisposeOfTanks();
+
+            if (timer1.Enabled)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void DisposeOfTanks()
+        {
             for (int i = 0; i < tanks.Count; i++)
             {
                 if (tanks[i] != null)
@@ -318,11 +339,6 @@ namespace BattleCity.NET
                     tanks[i] = null;
                 }
             }
-            if (timer1.Enabled)
-            {
-                Application.Exit();
-            }
         }
-
     }
 }
