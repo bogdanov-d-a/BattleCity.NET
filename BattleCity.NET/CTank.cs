@@ -329,14 +329,17 @@ namespace BattleCity.NET
             {
                 return;
             }
+
             m_health -= damage;
             if (m_health < 0)
             {
                 m_health = 0;
                 FBattleScreen.PlaySound("player_death");
             }
+
+            m_dmgTaken += damage;
         }
-       
+
         public double GetX()
         {
             return m_x;
@@ -379,6 +382,7 @@ namespace BattleCity.NET
         private short m_hits = 0;
         public int m_shots = 0;
         public int m_heals = 0;
+        public int m_dmgTaken = 0;
 
         private int m_reload;
         private int m_baseDirection;
