@@ -350,15 +350,15 @@ namespace BattleCity.NET
             }
             return false;
         }
-        public void SetDamage(short damage)
+        public bool SetDamage(short damage)
         {
-            if(m_health < 0)
+            if(m_health <= 0)
             {
-                return;
+                return false;
             }
 
             m_health -= damage;
-            if (m_health < 0)
+            if (m_health <= 0)
             {
                 m_health = 0;
                 FBattleScreen.PlaySound("player_death");
@@ -366,6 +366,8 @@ namespace BattleCity.NET
 
             m_dmgTaken += damage;
             ++m_hitsTaken;
+
+            return (m_health == 0);
         }
 
         public double GetX()

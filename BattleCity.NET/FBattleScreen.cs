@@ -15,7 +15,7 @@ namespace BattleCity.NET
 {
     public partial class FBattleScreen : Form
     {
-        public FBattleScreen(List<string> dlls, bool disableGamePb, bool disableSidePb, List<string> winnerDlls = null)
+        public FBattleScreen(List<string> dlls, bool disableGamePb, bool disableSidePb, int playerCntAim = 1, List<string> winnerDlls = null, List<string> deadDlls = null)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -56,6 +56,8 @@ namespace BattleCity.NET
 
             m_disableSidePb = disableSidePb;
             m_winnerDlls = winnerDlls;
+            m_deadDlls = deadDlls;
+            m_playerCntAim = playerCntAim;
 
             Directory.CreateDirectory("tmp");
 
@@ -103,6 +105,8 @@ namespace BattleCity.NET
         private CManagerMedChest m_medChests;
         private readonly bool m_disableSidePb;
         private List<string> m_winnerDlls;
+        private List<string> m_deadDlls;
+        private readonly int m_playerCntAim;
 
         public static Point[] GetRotatedRectangle(int degree, int size, double x0, double y0)
         {
@@ -181,21 +185,29 @@ namespace BattleCity.NET
             }
         }
 
+        private void HandleSetDamage(CTank tank, short damage)
+        {
+            if (tank.SetDamage(damage) && m_deadDlls != null)
+            {
+                m_deadDlls.Add(tank.m_name);
+            }
+        }
+
         private void ExplosionDamage(double x, double y, CTank tank, CShell shell)
         {
             if (tank != null && !tank.IsDead())
             {
                 if (tank.CheckCollision(x, y, CConstants.tankSize / 2)) //прямое попадание
                 {
-                    tank.SetDamage(10);
+                    HandleSetDamage(tank, 10);
                 }
                 if (tank.CheckCollision(x, y, CConstants.tankSize)) //в половине корпуса от танка
                 {
-                    tank.SetDamage(5);
+                    HandleSetDamage(tank, 5);
                 }
                 if (tank.CheckCollision(x, y, 3 * CConstants.tankSize / 2)) //в корпусе от танка
                 {
-                    tank.SetDamage(5);
+                    HandleSetDamage(tank, 5);
                     shell.SuccessfulyHits();
                 }
                 if (tank.IsDead())
@@ -256,15 +268,7 @@ namespace BattleCity.NET
                     alivePlayers++;
                 }
             }
-
-            if (m_winnerDlls == null)
-            {
-                return (alivePlayers < 2);
-            }
-            else
-            {
-                return (alivePlayers < 3);
-            }
+            return (alivePlayers < m_playerCntAim + 1);
         }
 
         private string GetWinner()
@@ -339,7 +343,6 @@ namespace BattleCity.NET
             {
                 return;
             }
-            Debug.Assert(m_winnerDlls.Count == 0);
 
             for (int i = 0; i < tanks.Count; ++i)
             {

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace BattleCity.NET
 {
     class CTournamentControl
     {
         private List<string> m_left;
+        private List<string> m_dead = new List<string>();
 
         public CTournamentControl(List<string> dlls)
         {
@@ -24,21 +26,7 @@ namespace BattleCity.NET
         public void Play()
         {
             List<string> players = GetPlayers();
-
-            if (players.Count > 3)
-            {
-                List<string> winners = new List<string>();
-                new FBattleScreen(players, CConstants.disableInGamePb, CConstants.disableSidePb, winners).ShowDialog();
-
-                foreach (string winner in winners)
-                {
-                    m_left.Add(winner);
-                }
-            }
-            else
-            {
-                new FBattleScreen(players, CConstants.disableInGamePb, CConstants.disableSidePb).ShowDialog();
-            }
+            new FBattleScreen(players, CConstants.disableInGamePb, CConstants.disableSidePb, (players.Count > 3) ? 2 : 1, m_left, m_dead).ShowDialog();
         }
 
         private List<string> GetPlayers()
@@ -53,6 +41,23 @@ namespace BattleCity.NET
             }
 
             return result;
+        }
+
+        public void ShowResult()
+        {
+            StringBuilder str = new StringBuilder();
+
+            foreach (string name in m_left)
+            {
+                str.Append(name + "\n");
+            }
+
+            for (int i = m_dead.Count - 1; i >= 0; --i)
+            {
+                str.Append(m_dead[i] + "\n");
+            }
+
+            MessageBox.Show(str.ToString());
         }
     }
 }

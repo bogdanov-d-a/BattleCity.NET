@@ -88,6 +88,8 @@ namespace BattleCity.NET
             {
                 tournament.Play();
             }
+
+            tournament.ShowResult();
         }
     }
 }
