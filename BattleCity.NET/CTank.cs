@@ -15,7 +15,7 @@ namespace BattleCity.NET
         private static readonly Image wrecked = Image.FromFile(@"Images\wrecked.png")
             .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
 
-        public CTank(string dll, string image, List<CTank> tanks)
+        public CTank(string dll, string name, string image, List<CTank> tanks)
         {
             m_ai = new CTankAI(dll);
             m_graphics = new CTankGraphics(image, CConstants.tankSize, CConstants.turretSize, 50);
@@ -37,7 +37,7 @@ namespace BattleCity.NET
             m_deadPlace = -1;
             m_reload = CConstants.reloadTime;
             m_destroyed = false;
-            m_name = dll;
+            m_name = name;
         }
         public void Dispose() 
         {

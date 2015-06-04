@@ -63,7 +63,7 @@ namespace BattleCity.NET
                 for (int i = 0; i < dlls.Count; i++)
                 {
                     File.Copy(dlls[i], "tmp/tempDLL" + Convert.ToString(i) + ".dll", true);
-                    NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", NumberToColor(i) + ".png");
+                    NewTank("tmp/tempDLL" + Convert.ToString(i) + ".dll", dlls[i], NumberToColor(i) + ".png");
                 }
             }
             catch (Exception e)
@@ -134,9 +134,9 @@ namespace BattleCity.NET
             }
         }
 
-        public void NewTank(string dll, string image)
+        public void NewTank(string dll, string name, string image)
         {
-            tanks.Add(new CTank(dll, image, tanks));
+            tanks.Add(new CTank(dll, name, image, tanks));
         }
 
         private void RefreshInterface(bool disableSidePb)
@@ -339,6 +339,18 @@ namespace BattleCity.NET
                     tanks[i] = null;
                 }
             }
+        }
+
+        private void ShowStats()
+        {
+            StatsForm sf = new StatsForm();
+
+            foreach (CTank tank in tanks)
+            {
+                sf.AddRecord(tank);
+            }
+
+            sf.ShowDialog();
         }
     }
 }
