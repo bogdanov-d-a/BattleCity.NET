@@ -46,13 +46,13 @@ namespace BattleCity.NET
             }
 
             if (countTanks > 0)
-                gbPlayer1.Text = dlls[0];
+                gbPlayer1.Text = Path.GetFileNameWithoutExtension(dlls[0]);
             if (countTanks > 1)
-                gbPlayer2.Text = dlls[1];
+                gbPlayer2.Text = Path.GetFileNameWithoutExtension(dlls[1]);
             if (countTanks > 2)
-                gbPlayer3.Text = dlls[2];
+                gbPlayer3.Text = Path.GetFileNameWithoutExtension(dlls[2]);
             if (countTanks > 3)
-                gbPlayer4.Text = dlls[3];
+                gbPlayer4.Text = Path.GetFileNameWithoutExtension(dlls[3]);
 
             m_disableSidePb = disableSidePb;
             m_winnerDlls = winnerDlls;
