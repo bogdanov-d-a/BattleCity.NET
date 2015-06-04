@@ -163,13 +163,13 @@ namespace BattleCity.NET
                 }
             }
 
-            {
-                m_ai.setCoords(Convert.ToInt32(m_x), Convert.ToInt32(m_y));
-                m_ai.setAngle(m_baseDirection); 
-                m_ai.setTurretAngle(m_turretDirection);
-                m_ai.setCollisionStatus(DetectCollisions(tanks));
-                m_ai.setLivePercent(m_health);
+            m_ai.setCoords(Convert.ToInt32(m_x), Convert.ToInt32(m_y));
+            m_ai.setAngle(m_baseDirection); 
+            m_ai.setTurretAngle(m_turretDirection);
+            m_ai.setCollisionStatus(DetectCollisions(tanks));
+            m_ai.setLivePercent(m_health);
 
+            {
                 List<CTank> visibleEnemies = GetEnemies(tanks);
                 m_ai.setVisilbeEnemyCount(visibleEnemies.Count);
                 for (int i = 0; i < visibleEnemies.Count; i++)
