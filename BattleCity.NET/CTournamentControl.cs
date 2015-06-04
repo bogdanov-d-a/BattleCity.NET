@@ -25,7 +25,7 @@ namespace BattleCity.NET
         {
             List<string> players = GetPlayers();
 
-            if (players.Count > 2)
+            if (players.Count > 3)
             {
                 List<string> winners = new List<string>();
                 new FBattleScreen(players, CConstants.disableInGamePb, CConstants.disableSidePb, winners).ShowDialog();
