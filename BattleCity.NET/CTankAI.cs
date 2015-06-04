@@ -88,7 +88,7 @@ namespace BattleCity.NET
         public readonly Update update;
 
 
-        private bool m_antibonusFunctionsLoaded;
+        private readonly bool m_antibonusFunctionsLoaded;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void SetVisibleAntibonusCountT(int count);
