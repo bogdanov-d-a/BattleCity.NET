@@ -294,6 +294,7 @@ namespace BattleCity.NET
             if (GameOver())
             {
                 Close();
+                return;
             }
 
             m_medChests.Update();
