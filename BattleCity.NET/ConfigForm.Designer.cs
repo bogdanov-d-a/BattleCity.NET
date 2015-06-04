@@ -132,6 +132,7 @@
             this.Controls.Add(this.medRateLabel);
             this.Controls.Add(this.reloadTimeLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.Name = "ConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configuration";
