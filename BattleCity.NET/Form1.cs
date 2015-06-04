@@ -150,7 +150,6 @@ namespace BattleCity.NET
                 dlls.Add(lTank4DLL.Text);
 
             FBattleScreen frm2 = new FBattleScreen(dlls, CConstants.disableInGamePb, CConstants.disableSidePb);
-            this.Hide();
             frm2.ShowDialog(this);
         }
 

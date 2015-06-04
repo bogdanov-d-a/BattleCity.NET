@@ -264,38 +264,36 @@ namespace BattleCity.NET
         private string GetWinner()
         {
             int winnerIndex = -1;
-            for (int i = 0; i < tanks.Count; i++)
+            int winnerCount = 0;
+
+            for (int i = 0; i < tanks.Count; ++i)
             {
                 if (!tanks[i].IsDead())
                 {
-                    winnerIndex = i + 1;
+                    winnerIndex = i;
+                    ++winnerCount;
                 }
             }
-            if (winnerIndex == -1)
+
+            if (winnerCount == 0)
             {
                 return "No one survived";
             }
-            return "Player " + Convert.ToString(winnerIndex) + " wins";
+            else if (winnerCount == 1)
+            {
+                return "Player " + Convert.ToString(winnerIndex) + " wins";
+            }
+            else
+            {
+                return "Multiple players survived";
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (GameOver())
             {
-                timer1.Enabled = false;
-                PlaySound("game_over");
-                DialogResult result = MessageBox.Show(this, "Do you want to play another game?", GetWinner() + ". Game over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    this.Close();
-                    this.Owner.Show();
-                    return;
-                }
-                else
-                {
-                    Application.Exit();
-                    return;
-                }
+                Close();
             }
 
             m_medChests.Update();
@@ -321,12 +319,10 @@ namespace BattleCity.NET
 
         private void FBattleScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timer1.Enabled = false;
+            PlaySound("game_over");
+            ShowStats();
             DisposeOfTanks();
-
-            if (timer1.Enabled)
-            {
-                Application.Exit();
-            }
         }
 
         private void DisposeOfTanks()
@@ -344,6 +340,7 @@ namespace BattleCity.NET
         private void ShowStats()
         {
             StatsForm sf = new StatsForm();
+            sf.Text = GetWinner();
 
             foreach (CTank tank in tanks)
             {
