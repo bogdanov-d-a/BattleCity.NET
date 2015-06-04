@@ -186,16 +186,17 @@ namespace BattleCity.NET
                 int newDirection = LimitValue(m_ai.getDirection(), -1, 1);
                 TryToMoveForward(newDirection * GetTankSpeed() * Math.Sin(m_baseDirection * Math.PI / 180),
                     newDirection * GetTankSpeed() * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
-
-                FixCollisions(tanks);
-                m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitTurretRotateSpeed(m_ai.getTurretRotateSpeed()) * CConstants.turretRotationRate + 360) % 360;
-
-                distance = m_ai.getFireDistance();
-                if (distance < -1)
-                {
-                    distance = -1;
-                }
             }
+
+            FixCollisions(tanks);
+            m_turretDirection += Convert.ToInt32(LimitValue(m_ai.getTurretRotateDirection(), -1, 1) * LimitTurretRotateSpeed(m_ai.getTurretRotateSpeed()) * CConstants.turretRotationRate + 360) % 360;
+
+            distance = m_ai.getFireDistance();
+            if (distance < -1)
+            {
+                distance = -1;
+            }
+
             if (distance != -1 && m_reload == 0)
             {
                 shells.Add(new CShell(Convert.ToInt32(m_x), Convert.ToInt32(m_y), m_turretDirection, distance, this));
