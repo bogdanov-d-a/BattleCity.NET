@@ -177,10 +177,12 @@ namespace BattleCity.NET
                     m_ai.setEnemyProteries(i, Convert.ToInt32(visibleEnemies[i].m_x), Convert.ToInt32(visibleEnemies[i].m_y),
                         visibleEnemies[i].m_baseDirection, visibleEnemies[i].m_turretDirection, visibleEnemies[i].m_health);
                 }
+            }
 
-                m_ai.update();
-                m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitRotateSpeed(m_ai.getRotateSpeed()) * CConstants.baseRotationRate + 360) % 360;
+            m_ai.update();
+            m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitRotateSpeed(m_ai.getRotateSpeed()) * CConstants.baseRotationRate + 360) % 360;
 
+            {
                 int newDirection = LimitValue(m_ai.getDirection(), -1, 1);
                 TryToMoveForward(newDirection * GetTankSpeed() * Math.Sin(m_baseDirection * Math.PI / 180),
                     newDirection * GetTankSpeed() * Math.Cos(m_baseDirection * Math.PI / 180), tanks);
