@@ -20,7 +20,7 @@ namespace BattleCity.NET
 
             try
             {
-                Application.Run(new Form1());
+                Application.Run(new SetupForm());
             }
             catch (Exception e)
             {
