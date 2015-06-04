@@ -38,6 +38,7 @@
             // openFileDialog
             // 
             this.openFileDialog.DefaultExt = "dll";
+            this.openFileDialog.Filter = "DLL files|*.dll";
             this.openFileDialog.Multiselect = true;
             this.openFileDialog.Title = "Choose DLL files";
             // 
@@ -58,6 +59,7 @@
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // cfgButton
             // 

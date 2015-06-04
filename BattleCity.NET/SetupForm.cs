@@ -16,5 +16,10 @@ namespace BattleCity.NET
         {
             InitializeComponent();
         }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog.ShowDialog();
+        }
     }
 }
