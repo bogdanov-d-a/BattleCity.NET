@@ -88,6 +88,33 @@ namespace BattleCity.NET
         public readonly Update update;
 
 
+        private bool m_antibonusFunctionsLoaded;
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void SetVisibleAntibonusCountT(int count);
+        private readonly SetVisibleAntibonusCountT m_setVisibleAntibonusCount;
+
+        public void SetVisibleAntibonusCount(int count)
+        {
+            if (m_antibonusFunctionsLoaded)
+            {
+                m_setVisibleAntibonusCount(count);
+            }
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        private delegate void SetVisibleAntibonusDataT(int id, double x, double y);
+        private readonly SetVisibleAntibonusDataT m_setVisibleAntibonusData;
+
+        public void SetVisibleAntibonusData(int id, double x, double y)
+        {
+            if (m_antibonusFunctionsLoaded)
+            {
+                m_setVisibleAntibonusData(id, x, y);
+            }
+        }
+
+        
         private bool Loaded()
         {
             return m_library != IntPtr.Zero;
@@ -139,6 +166,17 @@ namespace BattleCity.NET
             {
                 Dispose();
                 throw e;
+            }
+
+            m_antibonusFunctionsLoaded = true;
+            try
+            {
+                m_setVisibleAntibonusCount = (SetVisibleAntibonusCountT)GetProcDelegate(typeof(SetVisibleAntibonusCountT), "SetVisibleAntibonusCount");
+                m_setVisibleAntibonusData = (SetVisibleAntibonusDataT)GetProcDelegate(typeof(SetVisibleAntibonusDataT), "SetVisibleAntibonusData");
+            }
+            catch (Exception)
+            {
+                m_antibonusFunctionsLoaded = false;
             }
         }
 
