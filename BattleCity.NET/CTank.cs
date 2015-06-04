@@ -150,12 +150,11 @@ namespace BattleCity.NET
                 m_reload--;
             }
             
-            List<CTank> visibleEnemies = GetEnemies(tanks);
-            List<CMedicineChest> allChest = medChests.GetMedicineChests();
 
             int distance = -1;
 
             {
+                List<CMedicineChest> allChest = medChests.GetMedicineChests();
                 int countTemp = allChest.Count();
                 m_ai.setVisibleChests(countTemp);
                 for (int i = 0; i < countTemp; ++i)
@@ -170,12 +169,15 @@ namespace BattleCity.NET
                 m_ai.setTurretAngle(m_turretDirection);
                 m_ai.setCollisionStatus(DetectCollisions(tanks));
                 m_ai.setLivePercent(m_health);
+
+                List<CTank> visibleEnemies = GetEnemies(tanks);
                 m_ai.setVisilbeEnemyCount(visibleEnemies.Count);
                 for (int i = 0; i < visibleEnemies.Count; i++)
                 {
                     m_ai.setEnemyProteries(i, Convert.ToInt32(visibleEnemies[i].m_x), Convert.ToInt32(visibleEnemies[i].m_y),
                         visibleEnemies[i].m_baseDirection, visibleEnemies[i].m_turretDirection, visibleEnemies[i].m_health);
                 }
+
                 m_ai.update();
                 m_baseDirection += Convert.ToInt32(LimitValue(m_ai.getRotateDirection(), -1, 1) * LimitRotateSpeed(m_ai.getRotateSpeed()) * CConstants.baseRotationRate + 360) % 360;
 
