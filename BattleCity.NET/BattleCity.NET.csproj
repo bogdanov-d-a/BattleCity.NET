@@ -88,6 +88,7 @@
     <Compile Include="CTank.cs" />
     <Compile Include="CTankAI.cs" />
     <Compile Include="CTankGraphics.cs" />
+    <Compile Include="CTournamentControl.cs" />
     <Compile Include="FBattleScreen.cs">
       <SubType>Form</SubType>
     </Compile>

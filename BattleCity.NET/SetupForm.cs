@@ -74,5 +74,20 @@ namespace BattleCity.NET
 
             return result;
         }
+
+        private void startTournamentButton_Click(object sender, EventArgs e)
+        {
+            if (dllListBox.Items.Count < 2)
+            {
+                MessageBox.Show("At least 2 players required for tournament");
+                return;
+            }
+
+            CTournamentControl tournament = new CTournamentControl(ObjectCollectionToList(dllListBox.Items));
+            while (tournament.Active())
+            {
+                tournament.Play();
+            }
+        }
     }
 }

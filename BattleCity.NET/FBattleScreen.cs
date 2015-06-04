@@ -15,7 +15,7 @@ namespace BattleCity.NET
 {
     public partial class FBattleScreen : Form
     {
-        public FBattleScreen(List<string> dlls, bool disableGamePb, bool disableSidePb)
+        public FBattleScreen(List<string> dlls, bool disableGamePb, bool disableSidePb, List<string> winnerDlls = null)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -55,6 +55,7 @@ namespace BattleCity.NET
                 gbPlayer4.Text = dlls[3];
 
             m_disableSidePb = disableSidePb;
+            m_winnerDlls = winnerDlls;
 
             Directory.CreateDirectory("tmp");
 
@@ -101,6 +102,7 @@ namespace BattleCity.NET
         private short deadPlace = 1;
         private CManagerMedChest m_medChests;
         private readonly bool m_disableSidePb;
+        private List<string> m_winnerDlls;
 
         public static Point[] GetRotatedRectangle(int degree, int size, double x0, double y0)
         {
@@ -254,11 +256,15 @@ namespace BattleCity.NET
                     alivePlayers++;
                 }
             }
-            if (alivePlayers < 2)
+
+            if (m_winnerDlls == null)
             {
-                return true;
+                return (alivePlayers < 2);
             }
-            return false;
+            else
+            {
+                return (alivePlayers < 3);
+            }
         }
 
         private string GetWinner()
@@ -322,8 +328,26 @@ namespace BattleCity.NET
         {
             timer1.Enabled = false;
             PlaySound("game_over");
+            SaveWinnerDlls();
             ShowStats();
             DisposeOfTanks();
+        }
+
+        private void SaveWinnerDlls()
+        {
+            if (m_winnerDlls == null)
+            {
+                return;
+            }
+            Debug.Assert(m_winnerDlls.Count == 0);
+
+            for (int i = 0; i < tanks.Count; ++i)
+            {
+                if (!tanks[i].IsDead())
+                {
+                    m_winnerDlls.Add(tanks[i].m_name);
+                }
+            }
         }
 
         private void DisposeOfTanks()
