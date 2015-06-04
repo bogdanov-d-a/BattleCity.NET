@@ -70,6 +70,7 @@
             this.cfgButton.TabIndex = 2;
             this.cfgButton.Text = "Options";
             this.cfgButton.UseVisualStyleBackColor = true;
+            this.cfgButton.Click += new System.EventHandler(this.cfgButton_Click);
             // 
             // startGameButton
             // 
@@ -79,6 +80,7 @@
             this.startGameButton.TabIndex = 3;
             this.startGameButton.Text = "Game";
             this.startGameButton.UseVisualStyleBackColor = true;
+            this.startGameButton.Click += new System.EventHandler(this.startGameButton_Click);
             // 
             // startTournamentButton
             // 
