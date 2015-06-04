@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BattleCity.NET
 {
-    class CExplosion : CLimitedLifeObject
+    public class CExplosion : CLimitedLifeObject
     {
         private static readonly Image explosion = Image.FromFile(@"Images\explosion.png")
             .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);

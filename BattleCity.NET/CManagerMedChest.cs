@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BattleCity.NET
 {
-    class CManagerMedChest
+    public class CManagerMedChest
     {
         List<CMedicineChest> m_MedicineChests;
         List<CTank> m_Tanks;

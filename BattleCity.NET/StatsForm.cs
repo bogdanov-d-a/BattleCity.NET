@@ -29,6 +29,11 @@ namespace BattleCity.NET
             dataGridView.Rows.Add(row);
         }
 
+        public void AddRecord(CTank tank)
+        {
+            AddRecord(tank.m_name, tank.m_heals, tank.m_shots, tank.m_hits, tank.m_dmgTaken, tank.m_hitsTaken);
+        }
+
         private DataGridViewTextBoxCell StringToText(string str)
         {
             DataGridViewTextBoxCell result = new DataGridViewTextBoxCell();

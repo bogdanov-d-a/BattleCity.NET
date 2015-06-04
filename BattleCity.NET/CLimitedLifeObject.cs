@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleCity.NET
 {
-    class CLimitedLifeObject
+    public class CLimitedLifeObject
     {
         private uint m_remaining;
 

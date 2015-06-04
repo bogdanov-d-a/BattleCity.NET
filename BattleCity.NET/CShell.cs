@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BattleCity.NET
 {
-    class CShell
+    public class CShell
     {
         private static readonly Image shell = Image.FromFile(@"Images\shell.png")
             .GetThumbnailImage(CConstants.shellSize, CConstants.shellSize, null, IntPtr.Zero);

@@ -10,7 +10,7 @@ using System.IO;
 
 namespace BattleCity.NET
 {
-    class CTank : IDisposable
+    public class CTank : IDisposable
     {
         private static readonly Image wrecked = Image.FromFile(@"Images\wrecked.png")
             .GetThumbnailImage(CConstants.tankSize, CConstants.tankSize, null, IntPtr.Zero);
@@ -37,6 +37,7 @@ namespace BattleCity.NET
             m_deadPlace = -1;
             m_reload = CConstants.reloadTime;
             m_destroyed = false;
+            m_name = dll;
         }
         public void Dispose() 
         {
@@ -406,8 +407,9 @@ namespace BattleCity.NET
         private double m_y;
         private short m_health;
         public bool m_slow = false;
+        public readonly string m_name;
 
-        private short m_hits = 0;
+        public short m_hits = 0;
         public int m_shots = 0;
         public int m_heals = 0;
         public int m_dmgTaken = 0;

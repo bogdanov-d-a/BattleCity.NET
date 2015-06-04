@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace BattleCity.NET
 {
-    class CMedicineChest : CLimitedLifeObject
+    public class CMedicineChest : CLimitedLifeObject
     {
         private static Image m_ImageMedicineChest = Image.FromFile(@"Images\MedicineChest.png");
         private static Image m_ImageAntibonus = Image.FromFile(@"Images\Antibonus.png");
