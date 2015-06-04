@@ -281,7 +281,7 @@ namespace BattleCity.NET
             }
             else if (winnerCount == 1)
             {
-                return "Player " + Convert.ToString(winnerIndex) + " wins";
+                return "Player " + Convert.ToString(winnerIndex + 1) + " wins";
             }
             else
             {
