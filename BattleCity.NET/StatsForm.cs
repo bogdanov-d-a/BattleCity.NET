@@ -12,6 +12,12 @@ namespace BattleCity.NET
 {
     public partial class StatsForm : Form
     {
+        private int m_heals = 0;
+        private int m_shots = 0;
+        private short m_hits = 0;
+        private int m_dmgTaken = 0;
+        private int m_hitsTaken = 0;
+
         public StatsForm()
         {
             InitializeComponent();
@@ -27,11 +33,22 @@ namespace BattleCity.NET
             row.Cells.Add(StringToText(Convert.ToString(dmgTaken)));
             row.Cells.Add(StringToText(Convert.ToString(hitsTaken)));
             dataGridView.Rows.Add(row);
+
+            m_heals += heals;
+            m_shots += shots;
+            m_hits += hits;
+            m_dmgTaken += dmgTaken;
+            m_hitsTaken += hitsTaken;
         }
 
         public void AddRecord(CTank tank)
         {
             AddRecord(tank.m_name, tank.m_heals, tank.m_shots, tank.m_hits, tank.m_dmgTaken, tank.m_hitsTaken);
+        }
+
+        public void AddTotalRecord()
+        {
+            AddRecord("Total", m_heals, m_shots, m_hits, m_dmgTaken, m_hitsTaken);
         }
 
         private DataGridViewTextBoxCell StringToText(string str)

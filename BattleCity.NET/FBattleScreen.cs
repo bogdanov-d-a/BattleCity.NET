@@ -348,6 +348,7 @@ namespace BattleCity.NET
                 sf.AddRecord(tank);
             }
 
+            sf.AddTotalRecord();
             sf.ShowDialog();
         }
     }
