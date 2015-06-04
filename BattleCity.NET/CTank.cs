@@ -154,12 +154,33 @@ namespace BattleCity.NET
             int distance = -1;
 
             {
-                List<CMedicineChest> allChest = medChests.GetMedicineChests();
-                int countTemp = allChest.Count();
-                m_ai.setVisibleChests(countTemp);
-                for (int i = 0; i < countTemp; ++i)
+                List<CMedicineChest> chestLst = new List<CMedicineChest>();
+                List<CMedicineChest> antibonusLst = new List<CMedicineChest>();
+
+                foreach (CMedicineChest obj in medChests.GetMedicineChests())
                 {
-                    m_ai.setCoordinatesChest(i, allChest[i].GetX(), allChest[i].GetY());
+                    if (obj.m_antibonus)
+                    {
+                        antibonusLst.Add(obj);
+                    }
+                    else
+                    {
+                        chestLst.Add(obj);
+                    }
+                }
+
+                int chestCnt = chestLst.Count();
+                m_ai.setVisibleChests(chestCnt);
+                for (int i = 0; i < chestCnt; ++i)
+                {
+                    m_ai.setCoordinatesChest(i, chestLst[i].GetX(), chestLst[i].GetY());
+                }
+
+                int antibonusCnt = antibonusLst.Count();
+                m_ai.SetVisibleAntibonusCount(antibonusCnt);
+                for (int i = 0; i < antibonusCnt; ++i)
+                {
+                    m_ai.SetVisibleAntibonusData(i, antibonusLst[i].GetX(), antibonusLst[i].GetY());
                 }
             }
 
