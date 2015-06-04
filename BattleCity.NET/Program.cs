@@ -27,7 +27,12 @@ namespace BattleCity.NET
                 MessageBox.Show(e.ToString());
             }
 
-            Directory.Delete("tmp", true);
+            try
+            {
+                Directory.Delete("tmp", true);
+            }
+            catch (Exception)
+            {}
         }
     }
 }
